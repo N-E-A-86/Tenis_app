@@ -1,16 +1,18 @@
 import { Pool } from "pg";
+import dns from "dns";
+
+// Force IPv6-first DNS resolution so Vercel Lambda can resolve Supabase's
+// IPv6-only database hostname (db.*.supabase.co has only AAAA records).
+dns.setDefaultResultOrder("verbatim");
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL!,
   ssl: {
     rejectUnauthorized: false,
   },
+  // Try IPv6 connection first; falls back to IPv4 if DNS returns both
+  family: 0,
 });
-
-interface QueryResult {
-  rows: any[];
-  rowCount: number | null;
-}
 
 export const db = {
   async query(text: string, params?: any[]): Promise<any[]> {
