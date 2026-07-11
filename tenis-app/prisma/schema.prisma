@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum SurfaceType {
+  CLAY
+  HARD
+  GRASS
+  SYNTHETIC
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum PaymentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REFUNDED
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model User {
+  id            String        @id @default(cuid())
+  email         String        @unique
+  name          String?
+  password      String?
+  phone         String?
+  image         String?
+  role          Role          @default(USER)
+  accounts      Account[]
+  sessions      Session[]
+  reservations  Reservation[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Court {
+  id           String        @id @default(cuid())
+  name         String        @unique
+  description  String?
+  surfaceType  SurfaceType   @default(CLAY)
+  pricePerHour Decimal       @db.Decimal(10, 2)
+  imageUrl     String?
+  isActive     Boolean       @default(true)
+  reservations Reservation[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@index([isActive])
+}
+
+model Reservation {
+  id         String            @id @default(cuid())
+  userId     String
+  courtId    String
+  startTime  DateTime          @db.Timestamptz()
+  endTime    DateTime          @db.Timestamptz()
+  status     ReservationStatus @default(PENDING)
+  totalPrice Decimal           @db.Decimal(10, 2)
+  user       User              @relation(fields: [userId], references: [id])
+  court      Court             @relation(fields: [courtId], references: [id])
+  payment    Payment?
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+
+  @@index([userId])
+  @@index([courtId])
+  @@index([startTime, endTime])
+  @@index([status])
+}
+
+model Payment {
+  id                String          @id @default(cuid())
+  reservationId     String          @unique
+  reservation       Reservation     @relation(fields: [reservationId], references: [id])
+  amount            Decimal         @db.Decimal(10, 2)
+  currency          String          @default("ARS")
+  status            PaymentStatus   @default(PENDING)
+  mpPaymentId       BigInt?         @map("mp_payment_id")
+  mpMerchantOrderId BigInt?         @map("mp_merchant_order_id")
+  mpPreferenceId    String?         @map("mp_preference_id")
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@index([status])
+}
