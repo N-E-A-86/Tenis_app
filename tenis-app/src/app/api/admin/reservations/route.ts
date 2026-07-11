@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 
 export async function GET(req: NextRequest) {
@@ -13,10 +13,13 @@ export async function GET(req: NextRequest) {
   const date = searchParams.get("date");
 
   try {
-    const where: any = {};
+    const conditions: string[] = [];
+    const values: any[] = [];
+    let paramIndex = 1;
 
     if (status) {
-      where.status = status;
+      conditions.push(`r."status" = $${paramIndex++}`);
+      values.push(status);
     }
 
     if (date) {
@@ -24,20 +27,29 @@ export async function GET(req: NextRequest) {
       selectedDate.setHours(0, 0, 0, 0);
       const nextDay = new Date(selectedDate);
       nextDay.setDate(nextDay.getDate() + 1);
-      where.startTime = { gte: selectedDate, lt: nextDay };
+      conditions.push(`r."startTime" >= $${paramIndex++}`);
+      values.push(selectedDate.toISOString());
+      conditions.push(`r."endTime" < $${paramIndex++}`);
+      values.push(nextDay.toISOString());
     }
 
-    const reservations = await prisma.reservation.findMany({
-      where,
-      include: {
-        user: { select: { id: true, name: true, email: true, phone: true } },
-        court: true,
-        payment: true,
-      },
-      orderBy: { startTime: "desc" },
-    });
+    const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
 
-    return NextResponse.json(reservations);
+    const reservations = await db.query(
+      `SELECT r.*,
+        row_to_json(u.*) as "user",
+        row_to_json(c.*) as court,
+        row_to_json(p.*) as payment
+       FROM "Reservation" r
+       LEFT JOIN "User" u ON u.id = r."userId"
+       LEFT JOIN "Court" c ON c.id = r."courtId"
+       LEFT JOIN "Payment" p ON p."reservationId" = r.id
+       ${whereClause}
+       ORDER BY r."startTime" DESC`,
+      values
+    );
+
+    return NextResponse.json(reservations ?? []);
   } catch (error) {
     return NextResponse.json(
       { error: "Error al obtener reservas" },

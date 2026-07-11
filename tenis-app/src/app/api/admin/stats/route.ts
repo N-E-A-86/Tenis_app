@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 
 export async function GET() {
@@ -9,44 +9,35 @@ export async function GET() {
   }
 
   try {
-    const [
-      totalUsers,
-      totalCourts,
-      totalReservations,
-      confirmedReservations,
-      pendingReservations,
-      todayReservations,
-      revenue,
-    ] = await Promise.all([
-      prisma.user.count(),
-      prisma.court.count({ where: { isActive: true } }),
-      prisma.reservation.count(),
-      prisma.reservation.count({ where: { status: "CONFIRMED" } }),
-      prisma.reservation.count({ where: { status: "PENDING" } }),
-      prisma.reservation.count({
-        where: {
-          startTime: {
-            gte: new Date(new Date().setHours(0, 0, 0, 0)),
-            lt: new Date(new Date().setHours(23, 59, 59, 999)),
-          },
-        },
-      }),
-      prisma.payment.aggregate({
-        where: { status: "APPROVED" },
-        _sum: { amount: true },
-      }),
-    ]);
+    const now = new Date();
+    const todayStart = new Date(now);
+    todayStart.setHours(0, 0, 0, 0);
+    const todayEnd = new Date(now);
+    todayEnd.setHours(23, 59, 59, 999);
+
+    const [stats] = await db.query(
+      `SELECT
+        (SELECT count(*) FROM "User")::int as "totalUsers",
+        (SELECT count(*) FROM "Court" WHERE "isActive" = true)::int as "totalCourts",
+        (SELECT count(*) FROM "Reservation")::int as "totalReservations",
+        (SELECT count(*) FROM "Reservation" WHERE "status" = 'CONFIRMED')::int as "confirmedReservations",
+        (SELECT count(*) FROM "Reservation" WHERE "status" = 'PENDING')::int as "pendingReservations",
+        (SELECT count(*) FROM "Reservation" WHERE "startTime" >= $1 AND "startTime" < $2)::int as "todayReservations",
+        (SELECT COALESCE(sum(amount), 0) FROM "Payment" WHERE "status" = 'APPROVED')::numeric as "revenue"`,
+      [todayStart.toISOString(), todayEnd.toISOString()]
+    );
 
     return NextResponse.json({
-      totalUsers,
-      totalCourts,
-      totalReservations,
-      confirmedReservations,
-      pendingReservations,
-      todayReservations,
-      revenue: revenue._sum.amount || 0,
+      totalUsers: stats?.totalUsers ?? 0,
+      totalCourts: stats?.totalCourts ?? 0,
+      totalReservations: stats?.totalReservations ?? 0,
+      confirmedReservations: stats?.confirmedReservations ?? 0,
+      pendingReservations: stats?.pendingReservations ?? 0,
+      todayReservations: stats?.todayReservations ?? 0,
+      revenue: Number(stats?.revenue ?? 0),
     });
   } catch (error) {
+    console.error("Error fetching stats:", error);
     return NextResponse.json(
       { error: "Error al obtener estadísticas" },
       { status: 500 }

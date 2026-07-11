@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/db";
 
 export async function GET() {
   try {
-    const courts = await prisma.court.findMany({
-      where: { isActive: true },
-      orderBy: { name: "asc" },
-    });
-    return NextResponse.json(courts);
+    const courts = await db.query(
+      'SELECT * FROM "Court" WHERE "isActive" = $1 ORDER BY "name" ASC',
+      [true]
+    );
+
+    return NextResponse.json(courts ?? []);
   } catch (error) {
     console.error("Error fetching courts:", error);
     return NextResponse.json(

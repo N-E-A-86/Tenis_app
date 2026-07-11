@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/db";
 import { mpPayment } from "@/lib/mercadopago";
 
 export async function POST(req: NextRequest) {
@@ -7,7 +7,6 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { type, data } = body;
 
-    // Solo procesar notificaciones de pago
     if (type !== "payment") {
       return NextResponse.json({ received: true });
     }
@@ -17,7 +16,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No payment ID" }, { status: 400 });
     }
 
-    // Obtener información del pago desde MP
     const payment = await mpPayment.get({ id: paymentId });
 
     if (!payment) {
@@ -47,25 +45,19 @@ export async function POST(req: NextRequest) {
         paymentStatus = "REFUNDED";
         reservationStatus = "CANCELLED";
         break;
-      default:
-        paymentStatus = "PENDING";
     }
 
-    // Actualizar payment
-    await prisma.payment.update({
-      where: { reservationId },
-      data: {
-        status: paymentStatus,
-        mpPaymentId: paymentId,
-        mpMerchantOrderId: payment.order?.id ? BigInt(payment.order.id) : null,
-      },
-    });
+    await db.query(
+      `UPDATE "Payment" SET "status" = $1, "mpPaymentId" = $2, "updatedAt" = NOW()
+       WHERE "reservationId" = $3`,
+      [paymentStatus, Number(paymentId), reservationId]
+    );
 
-    // Actualizar reserva
-    await prisma.reservation.update({
-      where: { id: reservationId },
-      data: { status: reservationStatus },
-    });
+    await db.query(
+      `UPDATE "Reservation" SET "status" = $1, "updatedAt" = NOW()
+       WHERE "id" = $2`,
+      [reservationStatus, reservationId]
+    );
 
     return NextResponse.json({ received: true });
   } catch (error) {

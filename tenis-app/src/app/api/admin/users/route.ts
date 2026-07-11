@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 
 export async function GET() {
@@ -9,19 +9,14 @@ export async function GET() {
   }
 
   try {
-    const users = await prisma.user.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        createdAt: true,
-        _count: { select: { reservations: true } },
-      },
-      orderBy: { createdAt: "desc" },
-    });
+    const users = await db.query(
+      `SELECT id, name, email, role, "createdAt",
+        (SELECT count(*) FROM "Reservation" WHERE "userId" = "User"."id") as reservation_count
+       FROM "User"
+       ORDER BY "createdAt" DESC`
+    );
 
-    return NextResponse.json(users);
+    return NextResponse.json(users ?? []);
   } catch (error) {
     return NextResponse.json(
       { error: "Error al obtener usuarios" },

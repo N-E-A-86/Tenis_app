@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/db";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -14,29 +14,26 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const selectedDate = new Date(date as string);
+    const selectedDate = new Date(date);
     selectedDate.setHours(0, 0, 0, 0);
 
     const nextDay = new Date(selectedDate);
     nextDay.setDate(nextDay.getDate() + 1);
 
-    // Obtener reservas existentes para esa cancha y fecha
-    const reservations = await prisma.reservation.findMany({
-      where: {
-        courtId,
-        status: { in: ["PENDING", "CONFIRMED"] },
-        startTime: { gte: selectedDate },
-        endTime: { lt: nextDay },
-      },
-      select: { startTime: true, endTime: true },
-    });
+    const reservations = await db.query(
+      `SELECT "startTime", "endTime" FROM "Reservation"
+       WHERE "courtId" = $1
+         AND "status" = ANY($2)
+         AND "startTime" >= $3
+         AND "endTime" < $4`,
+      [courtId, ["PENDING", "CONFIRMED"], selectedDate.toISOString(), nextDay.toISOString()]
+    );
 
-    const bookedSlots = reservations.map((r) => {
+    const bookedSlots = (reservations ?? []).map((r) => {
       const start = new Date(r.startTime);
       return start.getHours();
     });
 
-    // Generar slots disponibles (08:00 - 23:00)
     const slots = [];
     for (let hour = 8; hour <= 23; hour++) {
       slots.push({

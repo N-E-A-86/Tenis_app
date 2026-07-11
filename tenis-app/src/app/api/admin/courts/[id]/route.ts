@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 
 export async function PUT(
@@ -15,17 +15,23 @@ export async function PUT(
 
   try {
     const body = await req.json();
-    const court = await prisma.court.update({
-      where: { id },
-      data: {
-        name: body.name,
-        description: body.description,
-        surfaceType: body.surfaceType,
-        pricePerHour: body.pricePerHour ? parseFloat(body.pricePerHour) : undefined,
-        imageUrl: body.imageUrl,
-        isActive: body.isActive,
-      },
-    });
+    const [court] = await db.query(
+      `UPDATE "Court"
+       SET "name" = $1, "description" = $2, "surfaceType" = $3,
+           "pricePerHour" = $4, "imageUrl" = $5, "isActive" = $6,
+           "updatedAt" = NOW()
+       WHERE "id" = $7
+       RETURNING *`,
+      [
+        body.name,
+        body.description,
+        body.surfaceType,
+        body.pricePerHour ? parseFloat(body.pricePerHour) : null,
+        body.imageUrl,
+        body.isActive,
+        id,
+      ]
+    );
 
     return NextResponse.json(court);
   } catch (error) {
@@ -48,11 +54,10 @@ export async function DELETE(
   const { id } = await params;
 
   try {
-    // Soft delete - desactivar en lugar de borrar
-    await prisma.court.update({
-      where: { id },
-      data: { isActive: false },
-    });
+    await db.query(
+      `UPDATE "Court" SET "isActive" = false, "updatedAt" = NOW() WHERE "id" = $1`,
+      [id]
+    );
 
     return NextResponse.json({ success: true });
   } catch (error) {

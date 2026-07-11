@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 
 export async function PATCH(
@@ -15,9 +15,10 @@ export async function PATCH(
   const body = await req.json();
 
   try {
-    const reservation = await prisma.reservation.findUnique({
-      where: { id },
-    });
+    const reservation = await db.queryOne(
+      `SELECT * FROM "Reservation" WHERE "id" = $1`,
+      [id]
+    );
 
     if (!reservation) {
       return NextResponse.json(
@@ -26,13 +27,11 @@ export async function PATCH(
       );
     }
 
-    // Solo el dueño o admin puede modificar
     const isAdmin = session.user.role === "ADMIN";
     if (reservation.userId !== session.user.id && !isAdmin) {
       return NextResponse.json({ error: "No autorizado" }, { status: 403 });
     }
 
-    // Solo permitir cancelar si está PENDING o CONFIRMED
     if (body.status === "CANCELLED") {
       if (!["PENDING", "CONFIRMED"].includes(reservation.status)) {
         return NextResponse.json(
@@ -42,11 +41,12 @@ export async function PATCH(
       }
     }
 
-    const updated = await prisma.reservation.update({
-      where: { id },
-      data: { status: body.status },
-      include: { court: true, payment: true },
-    });
+    const [updated] = await db.query(
+      `UPDATE "Reservation" SET "status" = $1, "updatedAt" = NOW()
+       WHERE "id" = $2
+       RETURNING *`,
+      [body.status, id]
+    );
 
     return NextResponse.json(updated);
   } catch (error) {

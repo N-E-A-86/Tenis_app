@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { preference } from "@/lib/mercadopago";
 
@@ -19,10 +19,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const reservation = await prisma.reservation.findUnique({
-      where: { id: reservationId },
-      include: { court: true, user: true },
-    });
+    const [reservation] = await db.query(
+      `SELECT r.*,
+        row_to_json(c.*) as court,
+        row_to_json(u.*) as "user"
+       FROM "Reservation" r
+       LEFT JOIN "Court" c ON c.id = r."courtId"
+       LEFT JOIN "User" u ON u.id = r."userId"
+       WHERE r."id" = $1`,
+      [reservationId]
+    );
 
     if (!reservation) {
       return NextResponse.json(
@@ -42,13 +48,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Crear preferencia en Mercado Pago
     const mpPreference = await preference.create({
       body: {
         items: [
           {
             id: reservation.id,
-            title: `Reserva: ${reservation.court.name} - ${reservation.startTime.toLocaleDateString("es-AR")} ${reservation.startTime.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" })}`,
+            title: `Reserva: ${reservation.court.name} - ${new Date(reservation.startTime).toLocaleDateString("es-AR")} ${new Date(reservation.startTime).toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" })}`,
             quantity: 1,
             unit_price: Number(reservation.totalPrice),
             currency_id: "ARS",
@@ -71,15 +76,11 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Guardar preference ID
-    await prisma.payment.create({
-      data: {
-        reservationId: reservation.id,
-        amount: reservation.totalPrice,
-        status: "PENDING",
-        mpPreferenceId: mpPreference.id,
-      },
-    });
+    await db.query(
+      `INSERT INTO "Payment" ("reservationId", amount, status, "mpPreferenceId")
+       VALUES ($1, $2, $3, $4)`,
+      [reservation.id, reservation.totalPrice, "PENDING", mpPreference.id]
+    );
 
     return NextResponse.json({
       preferenceId: mpPreference.id,

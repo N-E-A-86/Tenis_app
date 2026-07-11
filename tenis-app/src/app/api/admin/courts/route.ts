@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 
 export async function GET() {
@@ -9,11 +9,14 @@ export async function GET() {
   }
 
   try {
-    const courts = await prisma.court.findMany({
-      orderBy: { name: "asc" },
-      include: { _count: { select: { reservations: true } } },
-    });
-    return NextResponse.json(courts);
+    const courts = await db.query(
+      `SELECT *,
+        (SELECT count(*) FROM "Reservation" WHERE "courtId" = "Court"."id") as reservation_count
+       FROM "Court"
+       ORDER BY "name" ASC`
+    );
+
+    return NextResponse.json(courts ?? []);
   } catch (error) {
     return NextResponse.json(
       { error: "Error al obtener canchas" },
@@ -39,15 +42,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const court = await prisma.court.create({
-      data: {
-        name,
-        description,
-        surfaceType: surfaceType || "CLAY",
-        pricePerHour: parseFloat(pricePerHour),
-        imageUrl,
-      },
-    });
+    const [court] = await db.query(
+      `INSERT INTO "Court" (name, description, "surfaceType", "pricePerHour", "imageUrl")
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING *`,
+      [name, description, surfaceType || "CLAY", parseFloat(pricePerHour), imageUrl ?? null]
+    );
 
     return NextResponse.json(court, { status: 201 });
   } catch (error) {
