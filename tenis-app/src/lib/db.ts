@@ -10,8 +10,6 @@ const pool = new Pool({
   ssl: {
     rejectUnauthorized: false,
   },
-  // Try IPv6 connection first; falls back to IPv4 if DNS returns both
-  family: 0,
 });
 
 export const db = {
