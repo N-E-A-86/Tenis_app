@@ -1,16 +1,30 @@
 import { Pool } from "pg";
-import dns from "dns";
 
-// Force IPv6-first DNS resolution so Vercel Lambda can resolve Supabase's
-// IPv6-only database hostname (db.*.supabase.co has only AAAA records).
-dns.setDefaultResultOrder("verbatim");
+// PostgREST schema cache está roto en este proyecto de Supabase.
+// El hostname db.*.supabase.co solo tiene registros AAAA (IPv6).
+// Vercel Lambda no resuelve AAAA via DNS, así que usamos la IP
+// fija directamente para bypassiar DNS por completo.
+//
+// NOTA: pg no maneja bien los brackets IPv6 en connectionString
+// (pasa "[::1]" literal a getaddrinfo). Por eso usamos host + port
+// individuales en vez de connectionString.
+
+const DB_IPV6 = "2600:1f1e:dbb:f600:641f:d14d:b05c:ea25";
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL!,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  host: DB_IPV6,
+  port: 5432,
+  database: "postgres",
+  user: "postgres.ysrzehkopktmdpmtrbfh",
+  password: extractPassword(),
+  ssl: { rejectUnauthorized: false },
 });
+
+/** Extraer password de DATABASE_URL */
+function extractPassword(): string {
+  const url = new URL(process.env.DATABASE_URL!);
+  return decodeURIComponent(url.password);
+}
 
 export const db = {
   async query(text: string, params?: any[]): Promise<any[]> {
