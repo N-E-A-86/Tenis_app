@@ -12,7 +12,9 @@ export default function CourtGrid() {
     fetch("/api/courts")
       .then((res) => res.json())
       .then((data) => {
-        setCourts(data);
+        if (Array.isArray(data)) {
+          setCourts(data);
+        }
         setLoading(false);
       })
       .catch(() => setLoading(false));

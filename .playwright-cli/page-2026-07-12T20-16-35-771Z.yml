@@ -1,0 +1,678 @@
+- generic:
+  - generic:
+    - generic:
+      - generic:
+        - link:
+          - /url: "#main"
+          - text: Skip to content
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - img
+                  - generic:
+                    - paragraph: We are investigating a technical issue
+                    - generic:
+                      - generic: ·
+                      - generic:
+                        - text: Follow the
+                        - link:
+                          - /url: https://status.supabase.com
+                          - text: status page
+                        - text: for updates
+                - button:
+                  - generic:
+                    - img
+        - generic:
+          - banner:
+            - generic:
+              - generic:
+                - link:
+                  - /url: /dashboard/org/rpvochybsqtebguthxus
+                  - img
+                  - generic: Back to organization home
+                - generic:
+                  - generic:
+                    - img
+                  - generic:
+                    - link:
+                      - /url: /dashboard/org/rpvochybsqtebguthxus
+                      - img
+                      - generic: N-solutions
+                      - generic: Free
+                    - button:
+                      - generic:
+                        - img
+                  - generic:
+                    - generic:
+                      - img
+                    - generic:
+                      - link:
+                        - /url: /dashboard/project/ysrzehkopktmdpmtrbfh
+                        - img
+                        - generic: tenis-app
+                      - button:
+                        - generic:
+                          - img
+                    - generic:
+                      - img
+                    - generic:
+                      - link:
+                        - /url: /dashboard/project/ysrzehkopktmdpmtrbfh
+                        - generic: main
+                        - generic: Production
+                      - button:
+                        - generic:
+                          - img
+                - generic:
+                  - button:
+                    - generic:
+                      - img
+                    - generic: Connect
+              - generic:
+                - button:
+                  - generic: Feedback
+                - generic:
+                  - button:
+                    - generic:
+                      - img
+                      - paragraph: Search...
+                    - generic:
+                      - generic: Ctrl K
+                  - button [ref=f30e900] [cursor=pointer]:
+                    - generic [ref=f30e430]:
+                      - img [ref=f30e431]
+                      - generic [ref=f30e434]: Help
+                  - button [ref=f30e901] [cursor=pointer]:
+                    - generic [ref=f30e437]:
+                      - img [ref=f30e438]
+                      - generic [ref=f30e440]: Advisor Center
+                  - button [ref=f30e902] [cursor=pointer]:
+                    - generic [ref=f30e442]:
+                      - img [ref=f30e443]
+                      - generic [ref=f30e445]: SQL Editor
+                  - button [ref=f30e903] [cursor=pointer]:
+                    - generic [ref=f30e447]:
+                      - img [ref=f30e450]
+                      - generic [ref=f30e453]: AI Assistant
+                - button [ref=f30e904] [cursor=pointer]:
+                  - img [ref=f30e905]
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - list:
+                      - generic:
+                        - listitem:
+                          - link:
+                            - /url: /dashboard/project/ysrzehkopktmdpmtrbfh
+                            - img
+                        - listitem:
+                          - link:
+                            - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/editor
+                            - img
+                        - listitem:
+                          - link:
+                            - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/sql
+                            - img
+                      - generic:
+                        - listitem:
+                          - link:
+                            - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/schemas
+                            - img
+                        - listitem:
+                          - link:
+                            - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/auth/users
+                            - img
+                        - listitem:
+                          - link:
+                            - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/storage/files
+                            - img
+                        - listitem:
+                          - link:
+                            - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/functions
+                            - img
+                        - listitem:
+                          - link:
+                            - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/realtime/inspector
+                            - img
+                      - generic:
+                        - generic:
+                          - listitem:
+                            - link:
+                              - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/advisors/security
+                              - img
+                        - listitem:
+                          - link:
+                            - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/observability
+                            - img
+                        - listitem:
+                          - link:
+                            - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/logs
+                            - img
+                        - listitem:
+                          - link:
+                            - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/integrations
+                            - img
+                      - generic:
+                        - listitem:
+                          - link:
+                            - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/settings/general
+                            - img
+                - generic:
+                  - generic:
+                    - button:
+                      - generic:
+                        - img
+          - generic:
+            - generic:
+              - generic:
+                - main:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - generic:
+                                - heading [level=4]: Database
+                              - generic:
+                                - generic:
+                                  - menu [disabled]:
+                                    - list:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic: Database Management
+                                            - generic:
+                                              - link [disabled]:
+                                                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/schemas
+                                                - menuitem [disabled]:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Schema Visualizer
+                                              - link [disabled]:
+                                                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/tables
+                                                - menuitem [disabled]:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Tables
+                                              - link [disabled]:
+                                                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/functions
+                                                - menuitem [disabled]:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Functions
+                                              - link [disabled]:
+                                                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/triggers/data
+                                                - menuitem [disabled]:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Triggers
+                                              - link [disabled]:
+                                                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/types
+                                                - menuitem [disabled]:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Enumerated Types
+                                              - link [disabled]:
+                                                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/extensions
+                                                - menuitem [disabled]:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Extensions
+                                              - link [disabled]:
+                                                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/indexes
+                                                - menuitem [disabled]:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Indexes
+                                              - link [disabled]:
+                                                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/publications
+                                                - menuitem [disabled]:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Publications
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic: Access Control
+                                            - generic:
+                                              - link [disabled]:
+                                                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/policies
+                                                - menuitem [disabled]:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Policies
+                                              - link [disabled]:
+                                                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/roles
+                                                - menuitem [disabled]:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Roles
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic: Configuration
+                                            - generic:
+                                              - link [disabled]:
+                                                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/settings
+                                                - menuitem [disabled]:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Settings
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - generic: Platform
+                                            - generic:
+                                              - link [disabled]:
+                                                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/replication
+                                                - menuitem [disabled]:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Replication
+                                              - link [disabled]:
+                                                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/backups/scheduled
+                                                - menuitem [disabled]:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Backups
+                                              - link [disabled]:
+                                                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/migrations
+                                                - menuitem [disabled]:
+                                                  - generic:
+                                                    - generic:
+                                                      - generic:
+                                                        - generic: Migrations
+                      - separator [disabled]:
+                        - generic:
+                          - img
+                      - generic:
+                        - generic:
+                          - main:
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - heading [level=1]: Database Settings
+                                    - generic: Connections, security, and network configuration
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - heading [level=2]: Database password
+                                      - generic: Used for direct Postgres connections
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - heading [level=3]: Reset database password
+                                        - paragraph: The database password isn’t viewable after creation. Resetting it will break any existing connections.
+                                      - button [ref=f30e906] [cursor=pointer]:
+                                        - generic [ref=f30e707]: Reset password
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - heading [level=2]: Connection pooling
+                                    - generic:
+                                      - link:
+                                        - /url: https://supabase.com/docs/guides/database/connecting-to-postgres#connection-pooler
+                                        - generic:
+                                          - img
+                                        - generic: Docs
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - heading [level=5]: Connection poolers
+                                              - paragraph: Configuration is shared across all connection poolers.
+                                            - generic:
+                                              - generic: Shared
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - group:
+                                                    - spinbutton: "15"
+                                                    - group:
+                                                      - generic: connections
+                                                - generic:
+                                                  - generic:
+                                                    - generic: Connection pool size
+                                                  - generic:
+                                                    - paragraph: The maximum number of connections made to the underlying Postgres cluster, per user+db combination. Pool size has a default of 15 based on your compute size of Nano.
+                                            - generic:
+                                              - generic:
+                                                - generic:
+                                                  - group:
+                                                    - spinbutton [disabled]
+                                                    - group:
+                                                      - generic: clients
+                                                - generic:
+                                                  - generic:
+                                                    - generic: Max client connections
+                                                  - generic:
+                                                    - paragraph:
+                                                      - text: The maximum number of concurrent client connections allowed. This value is fixed at 200 based on your compute size of Nano and cannot be changed.
+                                                      - link:
+                                                        - /url: https://supabase.com/docs/guides/database/connection-management#configuring-supavisors-pool-size
+                                                        - text: Learn more
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - generic:
+                                                - button [disabled]:
+                                                  - generic: Cancel
+                                                - button [disabled]:
+                                                  - generic: Save
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - heading [level=2]: SSL configuration
+                                    - link:
+                                      - /url: https://supabase.com/docs/guides/platform/ssl-enforcement
+                                      - generic:
+                                        - img
+                                      - generic: Docs
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - switch
+                                        - generic:
+                                          - generic:
+                                            - generic: Enforce SSL on incoming connections
+                                          - generic: Reject non-SSL connections to your database
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - button:
+                                              - generic:
+                                                - img
+                                              - generic:
+                                                - link:
+                                                  - /url: https://supabase-downloads.s3-ap-southeast-1.amazonaws.com/prod/ssl/prod-ca-2021.crt
+                                                  - text: Download certificate
+                                        - generic:
+                                          - generic:
+                                            - generic: SSL Certificate
+                                          - generic: Use this certificate when connecting to your database to prevent snooping and man-in-the-middle attacks.
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - heading [level=2]: Disk management
+                                    - link:
+                                      - /url: https://supabase.com/docs/guides/platform/database-size#disk-management
+                                      - generic:
+                                        - img
+                                      - generic: Docs
+                                - generic:
+                                  - alert:
+                                    - img
+                                    - generic:
+                                      - generic:
+                                        - heading [level=5]: Disk Management has moved
+                                        - generic:
+                                          - paragraph: Disk configuration is now managed alongside Project Compute on the new Compute and Disk page.
+                                      - generic:
+                                        - link:
+                                          - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/settings/compute-and-disk
+                                          - generic: Go to Compute and Disk
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - heading [level=2]: Network restrictions
+                                    - generic:
+                                      - link:
+                                        - /url: https://supabase.com/docs/guides/platform/network-restrictions
+                                        - generic:
+                                          - img
+                                        - generic: Docs
+                                      - button:
+                                        - generic: Add restriction
+                                        - generic:
+                                          - img
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - paragraph: Your database can be accessed by all IP addresses
+                                          - paragraph: You may start limiting access to your database by adding a network restriction.
+                                      - button [ref=f30e907] [cursor=pointer]:
+                                        - generic [ref=f30e848]: Restrict all access
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - heading [level=2]: Connection logging
+                                    - generic:
+                                      - link:
+                                        - /url: https://supabase.com/docs/guides/platform/postgres-connection-logging
+                                        - generic:
+                                          - img
+                                        - generic: Docs
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - switch
+                                              - checkbox
+                                            - generic:
+                                              - generic:
+                                                - generic: Log connections
+                                              - generic: Enables logging for each successful connection to the database
+                                      - generic:
+                                        - generic:
+                                          - generic:
+                                            - generic:
+                                              - switch
+                                              - checkbox
+                                            - generic:
+                                              - generic:
+                                                - generic: Log disconnections
+                                              - generic: Enables logging for the end of each session, including its duration
+                                      - generic:
+                                        - button [disabled]:
+                                          - generic: Cancel
+                                        - button [disabled] [ref=f30e908]:
+                                          - generic [ref=f30e884]: Save
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - heading [level=2]: Network bans
+                                      - generic: IP addresses temporarily blocked due to suspicious traffic
+                                    - link:
+                                      - /url: https://supabase.com/docs/reference/cli/supabase-network-bans
+                                      - generic:
+                                        - img
+                                      - generic: Docs
+                                - generic:
+                                  - generic:
+                                    - generic: There are no banned IP addresses for your project
+  - generic:
+    - alert: Settings | Database | tenis-app | N-solutions | Supabase
+  - dialog "Connect to your project" [ref=f30e910]:
+    - generic [ref=f30e911]:
+      - heading "Connect to your project" [level=2] [ref=f30e912]
+      - paragraph [ref=f30e913]: Choose how you want to use Supabase
+    - generic [ref=f30e914]:
+      - generic [ref=f30e916]:
+        - button "Framework Use a client library" [ref=f30e917]:
+          - img [ref=f30e919]
+          - generic [ref=f30e922]:
+            - paragraph [ref=f30e923]: Framework
+            - paragraph [ref=f30e924]: Use a client library
+        - button "Server Build APIs" [ref=f30e925]:
+          - img [ref=f30e927]
+          - generic [ref=f30e930]:
+            - paragraph [ref=f30e931]: Server
+            - paragraph [ref=f30e932]: Build APIs
+        - button "Direct Connection string" [active] [ref=f30e933]:
+          - img [ref=f30e935]
+          - generic [ref=f30e939]:
+            - paragraph [ref=f30e940]: Direct
+            - paragraph [ref=f30e941]: Connection string
+        - button "ORM Third-party library" [ref=f30e942]:
+          - img [ref=f30e944]
+          - generic [ref=f30e950]:
+            - paragraph [ref=f30e951]: ORM
+            - paragraph [ref=f30e952]: Third-party library
+        - button "MCP Connect your agent" [ref=f30e953]:
+          - img [ref=f30e955]
+          - generic [ref=f30e957]:
+            - paragraph [ref=f30e958]: MCP
+            - paragraph [ref=f30e959]: Connect your agent
+      - generic [ref=f30e961]:
+        - generic [ref=f30e1089]:
+          - generic [ref=f30e1092]: Connection Method
+          - radiogroup [ref=f30e1095]:
+            - radio "Direct connection Ideal for applications with persistent and long-lived connections, such as those running on virtual machines or long-standing containers." [checked] [ref=f30e1096] [cursor=pointer]:
+              - generic [ref=f30e1097]:
+                - img [ref=f30e1100]
+                - generic [ref=f30e1103]:
+                  - generic [ref=f30e1105]: Direct connection
+                  - generic [ref=f30e1106]: Ideal for applications with persistent and long-lived connections, such as those running on virtual machines or long-standing containers.
+            - radio "Transaction pooler Ideal for stateless applications like serverless functions where each interaction with Postgres is brief and isolated." [ref=f30e1107] [cursor=pointer]:
+              - generic [ref=f30e1111]:
+                - generic [ref=f30e1113]: Transaction pooler
+                - generic [ref=f30e1114]: Ideal for stateless applications like serverless functions where each interaction with Postgres is brief and isolated.
+            - radio "Session pooler Only recommended as an alternative to Direct Connection, when connecting via an IPv4 network." [ref=f30e1115] [cursor=pointer]:
+              - generic [ref=f30e1119]:
+                - generic [ref=f30e1121]: Session pooler
+                - generic [ref=f30e1122]: Only recommended as an alternative to Direct Connection, when connecting via an IPv4 network.
+        - generic [ref=f30e1124]:
+          - generic [ref=f30e1127]: Type
+          - combobox [ref=f30e1130]:
+            - generic: URI
+            - img [ref=f30e1131]
+      - generic [ref=f30e992]:
+        - heading "Connect your app" [level=3] [ref=f30e993]
+        - alert [ref=f30e1133]:
+          - img [ref=f30e1134]
+          - generic [ref=f30e1136]:
+            - generic [ref=f30e1137]:
+              - heading "Direct connections use IPv6 by default" [level=5] [ref=f30e1138]
+              - paragraph [ref=f30e1140]: Enable the dedicated IPv4 address add-on to connect from IPv4-only networks
+            - generic [ref=f30e1141]:
+              - link "Enable IPv4 add-on" [ref=f30e1142] [cursor=pointer]:
+                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/settings/addons?panel=ipv4
+                - generic [ref=f30e1143]: Enable IPv4 add-on
+              - link "Docs" [ref=f30e1144] [cursor=pointer]:
+                - /url: https://supabase.com/docs/guides/platform/ipv4-address
+                - img [ref=f30e1146]
+                - generic [ref=f30e1149]: Docs
+        - alert [ref=f30e994]:
+          - generic [ref=f30e995]:
+            - generic [ref=f30e997]:
+              - img "Supabase Grafana" [ref=f30e999]
+              - paragraph [ref=f30e1003]: Give your agent everything it needs
+            - button "Copy prompt" [ref=f30e1005] [cursor=pointer]:
+              - img [ref=f30e1007]
+              - generic [ref=f30e1010]: Copy prompt
+        - generic [ref=f30e1011]:
+          - generic [ref=f30e1151]:
+            - generic [ref=f30e1155]: "1"
+            - generic [ref=f30e1156]:
+              - generic [ref=f30e1157]:
+                - paragraph [ref=f30e1158]: Connection string
+                - paragraph [ref=f30e1159]: Copy the connection details for your database.
+              - generic [ref=f30e1161]:
+                - alert [ref=f30e1162]:
+                  - img [ref=f30e1163]
+                  - generic [ref=f30e1167]:
+                    - text: If your database password contains special characters, you will need to
+                    - link "percent-encode" [ref=f30e1168] [cursor=pointer]:
+                      - /url: https://supabase.com/docs/guides/database/postgres/roles#special-symbols-in-passwords
+                    - text: them in the connection string.
+                - generic [ref=f30e1169]:
+                  - generic [ref=f30e1171]:
+                    - code [ref=f30e1173]:
+                      - generic [ref=f30e1174]: postgresql://postgres:[YOUR-PASSWORD]@db.ysrzehkopktmdpmtrbfh.supabase.co:5432/postgres
+                    - button [ref=f30e1176] [cursor=pointer]:
+                      - img [ref=f30e1178]
+                  - generic [ref=f30e1181]:
+                    - generic [ref=f30e1182]: Forgot your database password?
+                    - button "Reset password" [ref=f30e1183] [cursor=pointer]:
+                      - img [ref=f30e1185]
+                      - generic [ref=f30e1188]: Reset password
+                - generic [ref=f30e1189]:
+                  - generic [ref=f30e1191]:
+                    - generic [ref=f30e1192]: "host:"
+                    - generic [ref=f30e1193]: db.ysrzehkopktmdpmtrbfh.supabase.co
+                    - button [ref=f30e1194]:
+                      - img [ref=f30e1195]
+                  - generic [ref=f30e1199]:
+                    - generic [ref=f30e1200]: "port:"
+                    - generic [ref=f30e1201]: "5432"
+                    - button [ref=f30e1202]:
+                      - img [ref=f30e1203]
+                  - generic [ref=f30e1207]:
+                    - generic [ref=f30e1208]: "database:"
+                    - generic [ref=f30e1209]: postgres
+                    - button [ref=f30e1210]:
+                      - img [ref=f30e1211]
+                  - generic [ref=f30e1215]:
+                    - generic [ref=f30e1216]: "user:"
+                    - generic [ref=f30e1217]: postgres
+                    - button [ref=f30e1218]:
+                      - img [ref=f30e1219]
+          - generic [ref=f30e1063]:
+            - generic [ref=f30e1067]: "2"
+            - generic [ref=f30e1068]:
+              - generic [ref=f30e1069]:
+                - paragraph [ref=f30e1070]: Install Agent Skills (Optional)
+                - paragraph [ref=f30e1071]: Agent Skills give AI coding tools ready-made instructions, scripts, and resources for working with Supabase more accurately and efficiently.
+              - generic [ref=f30e1073]:
+                - code [ref=f30e1075]: npx skills add supabase/agent-skills
+                - button "Copy" [ref=f30e1077] [cursor=pointer]:
+                  - img [ref=f30e1079]
+                  - generic [ref=f30e1082]: Copy
+    - button "Close" [ref=f30e1083]:
+      - img [ref=f30e1084]
+      - generic [ref=f30e1087]: Close

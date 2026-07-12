@@ -1,0 +1,387 @@
+- generic [active] [ref=f24e1]:
+  - generic [ref=f24e3]:
+    - generic [ref=f24e334]:
+      - link "Skip to content" [ref=f24e335] [cursor=pointer]:
+        - /url: "#main"
+      - generic [ref=f24e339]:
+        - generic [ref=f24e341]:
+          - img [ref=f24e342]
+          - generic [ref=f24e344]:
+            - paragraph [ref=f24e345]: We are investigating a technical issue
+            - generic [ref=f24e346]:
+              - generic [ref=f24e347]: ·
+              - generic [ref=f24e348]:
+                - text: Follow the
+                - link "status page" [ref=f24e349] [cursor=pointer]:
+                  - /url: https://status.supabase.com
+                - text: for updates
+        - button "Dismiss banner" [ref=f24e350] [cursor=pointer]:
+          - img [ref=f24e352]
+      - banner [ref=f24e356]:
+        - generic [ref=f24e357]:
+          - generic [ref=f24e358]:
+            - link "Supabase Back to organization home" [ref=f24e359] [cursor=pointer]:
+              - /url: /dashboard/org/rpvochybsqtebguthxus
+              - img "Supabase" [ref=f24e360]
+              - generic [ref=f24e361]: Back to organization home
+            - generic [ref=f24e362]:
+              - img [ref=f24e364]
+              - generic [ref=f24e366]:
+                - link "N-solutions Free" [ref=f24e367] [cursor=pointer]:
+                  - /url: /dashboard/org/rpvochybsqtebguthxus
+                  - img [ref=f24e368]
+                  - generic [ref=f24e378]: N-solutions
+                  - generic [ref=f24e379]: Free
+                - button "Show organizations" [ref=f24e380] [cursor=pointer]:
+                  - img [ref=f24e382]
+              - generic [ref=f24e385]:
+                - img [ref=f24e387]
+                - generic [ref=f24e389]:
+                  - link "tenis-app" [ref=f24e390] [cursor=pointer]:
+                    - /url: /dashboard/project/ysrzehkopktmdpmtrbfh
+                    - img [ref=f24e391]
+                    - generic "tenis-app" [ref=f24e394]
+                  - button "Show organization projects" [ref=f24e395] [cursor=pointer]:
+                    - img [ref=f24e397]
+                - img [ref=f24e401]
+                - generic [ref=f24e403]:
+                  - link "main Production" [ref=f24e404] [cursor=pointer]:
+                    - /url: /dashboard/project/ysrzehkopktmdpmtrbfh
+                    - generic "main" [ref=f24e405]
+                    - generic [ref=f24e406]: Production
+                  - button "Show project branches" [ref=f24e407] [cursor=pointer]:
+                    - img [ref=f24e409]
+            - button "Connect" [ref=f24e413] [cursor=pointer]:
+              - img [ref=f24e415]
+              - generic [ref=f24e417]: Connect
+          - generic [ref=f24e418]:
+            - button "Feedback" [ref=f24e419] [cursor=pointer]:
+              - generic [ref=f24e420]: Feedback
+            - generic [ref=f24e421]:
+              - button "Search..." [ref=f24e422]:
+                - generic [ref=f24e423]:
+                  - img [ref=f24e424]
+                  - paragraph [ref=f24e427]: Search...
+                - generic [ref=f24e429]: Ctrl K
+              - button "Help" [ref=f24e430] [cursor=pointer]:
+                - generic [ref=f24e431]:
+                  - img [ref=f24e432]
+                  - generic [ref=f24e435]: Help
+              - button "Advisor Center" [ref=f24e437] [cursor=pointer]:
+                - generic [ref=f24e438]:
+                  - img [ref=f24e439]
+                  - generic [ref=f24e441]: Advisor Center
+              - button "SQL Editor" [ref=f24e442] [cursor=pointer]:
+                - generic [ref=f24e443]:
+                  - img [ref=f24e444]
+                  - generic [ref=f24e446]: SQL Editor
+              - button "AI Assistant" [ref=f24e447] [cursor=pointer]:
+                - generic [ref=f24e448]:
+                  - img [ref=f24e451]
+                  - generic [ref=f24e454]: AI Assistant
+            - button "N-E-A-86" [ref=f24e455] [cursor=pointer]:
+              - img "N-E-A-86" [ref=f24e457]
+      - generic [ref=f24e458]:
+        - generic [ref=f24e462]:
+          - list [ref=f24e465]:
+            - generic [ref=f24e466]:
+              - listitem [ref=f24e467]:
+                - link "Project Overview" [ref=f24e468] [cursor=pointer]:
+                  - /url: /dashboard/project/ysrzehkopktmdpmtrbfh
+                  - img [ref=f24e469]
+                  - generic: Project Overview
+              - listitem [ref=f24e471]:
+                - link "Table Editor" [ref=f24e472] [cursor=pointer]:
+                  - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/editor
+                  - img [ref=f24e473]
+                  - generic: Table Editor
+              - listitem [ref=f24e475]:
+                - link "SQL Editor" [ref=f24e476] [cursor=pointer]:
+                  - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/sql
+                  - img [ref=f24e477]
+                  - generic: SQL Editor
+            - generic [ref=f24e479]:
+              - listitem [ref=f24e480]:
+                - link "Database" [ref=f24e481] [cursor=pointer]:
+                  - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/schemas
+                  - img [ref=f24e482]
+                  - generic: Database
+              - listitem [ref=f24e486]:
+                - link "Authentication" [ref=f24e487] [cursor=pointer]:
+                  - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/auth/users
+                  - img [ref=f24e488]
+                  - generic: Authentication
+              - listitem [ref=f24e490]:
+                - link "Storage" [ref=f24e491] [cursor=pointer]:
+                  - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/storage/files
+                  - img [ref=f24e492]
+                  - generic: Storage
+              - listitem [ref=f24e494]:
+                - link "Edge Functions" [ref=f24e495] [cursor=pointer]:
+                  - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/functions
+                  - img [ref=f24e496]
+                  - generic: Edge Functions
+              - listitem [ref=f24e501]:
+                - link "Realtime" [ref=f24e502] [cursor=pointer]:
+                  - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/realtime/inspector
+                  - img [ref=f24e503]
+                  - generic: Realtime
+            - generic [ref=f24e505]:
+              - listitem [ref=f24e507]:
+                - link "Advisors" [ref=f24e508] [cursor=pointer]:
+                  - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/advisors/security
+                  - img [ref=f24e509]
+                  - generic: Advisors
+              - listitem [ref=f24e511]:
+                - link "Observability" [ref=f24e512] [cursor=pointer]:
+                  - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/observability
+                  - img [ref=f24e513]
+                  - generic: Observability
+              - listitem [ref=f24e521]:
+                - link "Logs" [ref=f24e522] [cursor=pointer]:
+                  - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/logs
+                  - img [ref=f24e523]
+                  - generic: Logs
+              - listitem [ref=f24e524]:
+                - link "Integrations" [ref=f24e525] [cursor=pointer]:
+                  - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/integrations
+                  - img [ref=f24e526]
+                  - generic: Integrations
+            - listitem [ref=f24e530]:
+              - link "Project Settings" [ref=f24e531] [cursor=pointer]:
+                - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/settings/general
+                - img [ref=f24e532]
+                - generic: Project Settings
+          - button "Sidebar control" [ref=f24e537] [cursor=pointer]:
+            - img [ref=f24e539]
+        - main [ref=f24e544]:
+          - main [ref=f24e549]:
+            - generic [ref=f24e550]:
+              - generic [ref=f24e554]:
+                - generic [ref=f24e555]:
+                  - generic [ref=f24e557]:
+                    - heading "tenis-app" [level=1] [ref=f24e559]
+                    - button "Copy project URL and API keys" [ref=f24e562] [cursor=pointer]:
+                      - generic [ref=f24e563]:
+                        - text: Copy
+                        - generic [ref=f24e564]: project URL and API keys
+                      - img [ref=f24e566]
+                  - generic [ref=f24e570]:
+                    - generic [ref=f24e581]:
+                      - generic [ref=f24e582]: Status
+                      - generic [ref=f24e584]: Checking...
+                    - generic [ref=f24e585]:
+                      - img [ref=f24e587]
+                      - generic [ref=f24e590]:
+                        - generic [ref=f24e591]: Compute
+                        - generic [ref=f24e596]: nano
+                    - link "GitHub No repository connected" [ref=f24e597] [cursor=pointer]:
+                      - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/settings/integrations
+                      - generic [ref=f24e598]:
+                        - img [ref=f24e600]
+                        - generic [ref=f24e603]:
+                          - generic [ref=f24e604]: GitHub
+                          - paragraph [ref=f24e606]: No repository connected
+                    - link "Recent branch No branches" [ref=f24e607] [cursor=pointer]:
+                      - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/branches
+                      - generic [ref=f24e608]:
+                        - img [ref=f24e610]
+                        - generic [ref=f24e614]:
+                          - generic [ref=f24e615]: Recent branch
+                          - paragraph [ref=f24e617]: No branches
+                    - link "Last migration" [ref=f24e618] [cursor=pointer]:
+                      - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/migrations
+                      - generic [ref=f24e619]:
+                        - img [ref=f24e621]
+                        - generic [ref=f24e626]: Last migration
+                    - link "Last backup" [ref=f24e629] [cursor=pointer]:
+                      - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/database/backups/scheduled
+                      - generic [ref=f24e630]:
+                        - img [ref=f24e632]
+                        - generic [ref=f24e636]: Last backup
+                - img [ref=f24e643]
+              - generic [ref=f24e646]:
+                - generic [ref=f24e647]:
+                  - button "Drag to reorder section" [ref=f24e648]:
+                    - img [ref=f24e649]
+                  - generic [ref=f24e657]:
+                    - heading "Get connected" [level=3] [ref=f24e659]
+                    - generic [ref=f24e664]:
+                      - button "Framework Use a client library" [ref=f24e665]:
+                        - img [ref=f24e667]
+                        - generic [ref=f24e670]:
+                          - paragraph [ref=f24e671]: Framework
+                          - paragraph [ref=f24e672]: Use a client library
+                        - img [ref=f24e673]
+                      - button "Server Build APIs" [ref=f24e675]:
+                        - img [ref=f24e677]
+                        - generic [ref=f24e680]:
+                          - paragraph [ref=f24e681]: Server
+                          - paragraph [ref=f24e682]: Build APIs
+                        - img [ref=f24e683]
+                      - button "Direct Connection string" [ref=f24e685]:
+                        - img [ref=f24e687]
+                        - generic [ref=f24e691]:
+                          - paragraph [ref=f24e692]: Direct
+                          - paragraph [ref=f24e693]: Connection string
+                        - img [ref=f24e694]
+                      - button "ORM Third-party library" [ref=f24e696]:
+                        - img [ref=f24e698]
+                        - generic [ref=f24e704]:
+                          - paragraph [ref=f24e705]: ORM
+                          - paragraph [ref=f24e706]: Third-party library
+                        - img [ref=f24e707]
+                      - button "MCP Connect your agent" [ref=f24e709]:
+                        - img [ref=f24e711]
+                        - generic [ref=f24e713]:
+                          - paragraph [ref=f24e714]: MCP
+                          - paragraph [ref=f24e715]: Connect your agent
+                        - img [ref=f24e716]
+                      - button "API Keys Manage project keys" [ref=f24e718]:
+                        - img [ref=f24e720]
+                        - generic [ref=f24e723]:
+                          - paragraph [ref=f24e724]: API Keys
+                          - paragraph [ref=f24e725]: Manage project keys
+                        - img [ref=f24e726]
+                - generic [ref=f24e729]:
+                  - button "Drag to reorder section" [ref=f24e730]:
+                    - img [ref=f24e731]
+                  - generic [ref=f24e739]:
+                    - generic [ref=f24e740]:
+                      - generic [ref=f24e741]:
+                        - generic [ref=f24e742]:
+                          - generic [ref=f24e743]: "0"
+                          - generic [ref=f24e744]: Total Requests
+                        - generic [ref=f24e745]:
+                          - generic [ref=f24e746]: 0.0%
+                          - generic [ref=f24e747]: Success Rate
+                      - button "Last 60 minutes" [ref=f24e748] [cursor=pointer]:
+                        - generic [ref=f24e749]: Last 60 minutes
+                        - img [ref=f24e751]
+                    - generic [ref=f24e753]:
+                      - button "Scroll right" [ref=f24e754] [cursor=pointer]:
+                        - img [ref=f24e756]
+                      - region "Horizontally scrollable content" [ref=f24e758]:
+                        - generic [ref=f24e759]:
+                          - generic [ref=f24e761]:
+                            - generic [ref=f24e762]:
+                              - generic [ref=f24e764]:
+                                - heading "Postgres" [level=3] [ref=f24e765]:
+                                  - link "Postgres" [ref=f24e766] [cursor=pointer]:
+                                    - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/editor
+                                - generic [ref=f24e767]: "0"
+                              - generic [ref=f24e768]:
+                                - generic [ref=f24e769]:
+                                  - generic [ref=f24e772]: Warnings
+                                  - generic [ref=f24e773]: "0"
+                                - generic [ref=f24e774]:
+                                  - generic [ref=f24e777]: Errors
+                                  - generic [ref=f24e778]: "0"
+                            - img [ref=f24e782]
+                          - generic [ref=f24e785]:
+                            - generic [ref=f24e786]:
+                              - generic [ref=f24e788]:
+                                - heading "Edge Functions" [level=3] [ref=f24e789]:
+                                  - link "Edge Functions" [ref=f24e790] [cursor=pointer]:
+                                    - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/functions
+                                - generic [ref=f24e791]: "0"
+                              - generic [ref=f24e792]:
+                                - generic [ref=f24e793]:
+                                  - generic [ref=f24e796]: Warnings
+                                  - generic [ref=f24e797]: "0"
+                                - generic [ref=f24e798]:
+                                  - generic [ref=f24e801]: Errors
+                                  - generic [ref=f24e802]: "0"
+                            - img [ref=f24e806]
+                          - generic [ref=f24e809]:
+                            - generic [ref=f24e810]:
+                              - generic [ref=f24e812]:
+                                - heading "Auth" [level=3] [ref=f24e813]:
+                                  - link "Auth" [ref=f24e814] [cursor=pointer]:
+                                    - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/auth/users
+                                - generic [ref=f24e815]: "0"
+                              - generic [ref=f24e816]:
+                                - generic [ref=f24e817]:
+                                  - generic [ref=f24e820]: Warnings
+                                  - generic [ref=f24e821]: "0"
+                                - generic [ref=f24e822]:
+                                  - generic [ref=f24e825]: Errors
+                                  - generic [ref=f24e826]: "0"
+                            - img [ref=f24e830]
+                          - generic [ref=f24e833]:
+                            - generic [ref=f24e834]:
+                              - generic [ref=f24e836]:
+                                - heading "Storage" [level=3] [ref=f24e837]:
+                                  - link "Storage" [ref=f24e838] [cursor=pointer]:
+                                    - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/storage/buckets
+                                - generic [ref=f24e839]: "0"
+                              - generic [ref=f24e840]:
+                                - generic [ref=f24e841]:
+                                  - generic [ref=f24e844]: Warnings
+                                  - generic [ref=f24e845]: "0"
+                                - generic [ref=f24e846]:
+                                  - generic [ref=f24e849]: Errors
+                                  - generic [ref=f24e850]: "0"
+                            - img [ref=f24e854]
+                          - generic [ref=f24e857]:
+                            - generic [ref=f24e858]:
+                              - generic [ref=f24e860]:
+                                - heading "Realtime" [level=3] [ref=f24e861]:
+                                  - link "Realtime" [ref=f24e862] [cursor=pointer]:
+                                    - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/realtime/inspector
+                                - generic [ref=f24e863]: "0"
+                              - generic [ref=f24e864]:
+                                - generic [ref=f24e865]:
+                                  - generic [ref=f24e868]: Warnings
+                                  - generic [ref=f24e869]: "0"
+                                - generic [ref=f24e870]:
+                                  - generic [ref=f24e873]: Errors
+                                  - generic [ref=f24e874]: "0"
+                            - img [ref=f24e878]
+                - button "Drag to reorder section" [ref=f24e882]:
+                  - img [ref=f24e883]
+                - generic [ref=f24e898]:
+                  - button "Drag to reorder section" [ref=f24e899]:
+                    - img [ref=f24e900]
+                  - generic [ref=f24e908]:
+                    - generic [ref=f24e909]:
+                      - heading "Reports" [level=3] [ref=f24e910]
+                      - button "Add block" [ref=f24e912] [cursor=pointer]:
+                        - img [ref=f24e914]
+                        - generic [ref=f24e915]: Add block
+                    - generic [ref=f24e917]:
+                      - heading "Build a custom report" [level=4] [ref=f24e918]
+                      - paragraph [ref=f24e919]: Keep track of your most important metrics
+                      - button "Add your first block" [ref=f24e920] [cursor=pointer]:
+                        - generic [ref=f24e921]: Add your first block
+                        - img [ref=f24e923]
+                - status [ref=f24e924]
+    - generic [ref=f24e928]:
+      - generic:
+        - img "Background pattern"
+      - generic [ref=f24e929]:
+        - button "Close banner" [ref=f24e931] [cursor=pointer]:
+          - img [ref=f24e933]
+        - generic [ref=f24e936]:
+          - generic [ref=f24e937]:
+            - generic [ref=f24e938]: Beta
+            - generic [ref=f24e940]:
+              - generic [ref=f24e942]:
+                - generic [ref=f24e944]: 12 Jul 26 17:15:25
+                - generic [ref=f24e945]: "200"
+              - generic [ref=f24e947]:
+                - generic [ref=f24e949]: 12 Jul 26 17:15:24
+                - generic [ref=f24e950]: "201"
+              - generic [ref=f24e952]:
+                - generic [ref=f24e954]: 12 Jul 26 17:15:23
+                - generic [ref=f24e955]: "200"
+              - generic [ref=f24e957]:
+                - generic [ref=f24e959]: 12 Jul 26 17:15:22
+                - generic [ref=f24e960]: "200"
+          - generic [ref=f24e961]:
+            - paragraph [ref=f24e962]: Unified Logs is here
+            - paragraph [ref=f24e963]: Search and correlate logs across all of your services from a single place.
+          - link "Explore Unified Logs" [ref=f24e965] [cursor=pointer]:
+            - /url: /dashboard/project/ysrzehkopktmdpmtrbfh/logs
+            - generic [ref=f24e966]: Explore Unified Logs
+  - alert [ref=f24e333]: tenis-app | N-solutions | Supabase

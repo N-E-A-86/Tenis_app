@@ -1,30 +1,16 @@
 import { Pool } from "pg";
 
-// PostgREST schema cache está roto en este proyecto de Supabase.
-// El hostname db.*.supabase.co solo tiene registros AAAA (IPv6).
-// Vercel Lambda no resuelve AAAA via DNS, así que usamos la IP
-// fija directamente para bypassiar DNS por completo.
+// Conexión via Session Pooler de Supabase (IPv4 proxied gratis).
+// El host aws-1-sa-east-1.pooler.supabase.com resuelve por IPv4,
+// así que Vercel Lambda puede conectar sin problemas.
 //
-// NOTA: pg no maneja bien los brackets IPv6 en connectionString
-// (pasa "[::1]" literal a getaddrinfo). Por eso usamos host + port
-// individuales en vez de connectionString.
-
-const DB_IPV6 = "2600:1f1e:dbb:f600:641f:d14d:b05c:ea25";
+// DATABASE_URL debe apuntar al session pooler:
+//   postgresql://postgres.ysrzehkopktmdpmtrbfh:PASS@aws-1-sa-east-1.pooler.supabase.com:5432/postgres
 
 const pool = new Pool({
-  host: DB_IPV6,
-  port: 5432,
-  database: "postgres",
-  user: "postgres.ysrzehkopktmdpmtrbfh",
-  password: extractPassword(),
+  connectionString: process.env.DATABASE_URL!,
   ssl: { rejectUnauthorized: false },
 });
-
-/** Extraer password de DATABASE_URL */
-function extractPassword(): string {
-  const url = new URL(process.env.DATABASE_URL!);
-  return decodeURIComponent(url.password);
-}
 
 export const db = {
   async query(text: string, params?: any[]): Promise<any[]> {
