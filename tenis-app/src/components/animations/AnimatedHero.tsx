@@ -45,7 +45,7 @@ export default function AnimatedHero() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-yellow-300 to-orange-400">
                 cancha de tenis
               </span>{" "}
-              en segundos
+              <span className="text-black">en segundos</span>
             </motion.h1>
 
             <motion.p
