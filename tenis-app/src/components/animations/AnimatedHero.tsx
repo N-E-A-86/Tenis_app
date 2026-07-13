@@ -42,7 +42,7 @@ export default function AnimatedHero() {
               className="text-4xl sm:text-5xl lg:text-6xl font-bold text-black leading-tight"
             >
               Reservá tu{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-400 to-yellow-300">
+              <span className="text-emerald-700">
                 cancha de tenis
               </span>{" "}
               en segundos
@@ -52,7 +52,7 @@ export default function AnimatedHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-6 text-base sm:text-lg text-gray-700 max-w-lg font-medium"
+              className="mt-6 text-base sm:text-lg text-black max-w-lg font-medium"
             >
               Gestioná tus reservas, pagá con Mercado Pago y disfrutá del mejor
               tenis. Sin complicaciones, sin llamadas.
@@ -87,15 +87,15 @@ export default function AnimatedHero() {
             >
               <div>
                 <div className="text-xl sm:text-2xl font-bold text-black">4</div>
-                <div className="text-xs sm:text-sm text-gray-600 font-medium">Canchas</div>
+                <div className="text-xs sm:text-sm text-black font-medium">Canchas</div>
               </div>
               <div>
                 <div className="text-xl sm:text-2xl font-bold text-black">08-00</div>
-                <div className="text-xs sm:text-sm text-gray-600 font-medium">Horario</div>
+                <div className="text-xs sm:text-sm text-black font-medium">Horario</div>
               </div>
               <div>
                 <div className="text-xl sm:text-2xl font-bold text-black">MP</div>
-                <div className="text-xs sm:text-sm text-gray-600 font-medium">Pago seguro</div>
+                <div className="text-xs sm:text-sm text-black font-medium">Pago seguro</div>
               </div>
             </motion.div>
           </motion.div>
