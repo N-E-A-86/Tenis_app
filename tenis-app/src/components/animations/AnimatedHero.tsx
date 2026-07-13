@@ -10,14 +10,25 @@ export default function AnimatedHero() {
 
   return (
     <section ref={ref} className="relative min-h-[90vh] flex items-center overflow-hidden">
-      {/* Background gradient effect */}
-      <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/40 via-black to-black" />
-      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-yellow-300/8 rounded-full blur-3xl" />
-      <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl" />
+      {/* Background image */}
+      <Image
+        src="/images/pelota-tenis.jpg"
+        alt=""
+        fill
+        className="object-cover"
+        priority
+        sizes="100vw"
+      />
+
+      {/* Subtle light gradient overlay for readability at edges */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-white/30" />
+
+      {/* Decorative blur effects (light version) */}
+      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-white/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-emerald-100/20 rounded-full blur-3xl" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-2xl">
           {/* Texto */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
@@ -28,7 +39,7 @@ export default function AnimatedHero() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-black leading-tight"
             >
               Reservá tu{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-400 to-yellow-300">
@@ -41,7 +52,7 @@ export default function AnimatedHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-6 text-base sm:text-lg text-gray-400 max-w-lg"
+              className="mt-6 text-base sm:text-lg text-gray-700 max-w-lg font-medium"
             >
               Gestioná tus reservas, pagá con Mercado Pago y disfrutá del mejor
               tenis. Sin complicaciones, sin llamadas.
@@ -55,13 +66,13 @@ export default function AnimatedHero() {
             >
               <a
                 href="/canchas"
-                className="px-6 sm:px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-medium transition-all shadow-lg shadow-emerald-500/25"
+                className="px-6 sm:px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-emerald-600/30"
               >
                 Ver canchas
               </a>
               <a
                 href="/register"
-                className="px-6 sm:px-8 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg font-medium transition-all backdrop-blur-sm"
+                className="px-6 sm:px-8 py-3 bg-black/10 hover:bg-black/20 text-black rounded-lg font-medium transition-all backdrop-blur-sm border border-black/20"
               >
                 Registrarse
               </a>
@@ -75,35 +86,18 @@ export default function AnimatedHero() {
               className="mt-10 flex gap-6 sm:gap-8"
             >
               <div>
-                <div className="text-xl sm:text-2xl font-bold text-white">4</div>
-                <div className="text-xs sm:text-sm text-gray-500">Canchas</div>
+                <div className="text-xl sm:text-2xl font-bold text-black">4</div>
+                <div className="text-xs sm:text-sm text-gray-600 font-medium">Canchas</div>
               </div>
               <div>
-                <div className="text-xl sm:text-2xl font-bold text-white">08-00</div>
-                <div className="text-xs sm:text-sm text-gray-500">Horario</div>
+                <div className="text-xl sm:text-2xl font-bold text-black">08-00</div>
+                <div className="text-xs sm:text-sm text-gray-600 font-medium">Horario</div>
               </div>
               <div>
-                <div className="text-xl sm:text-2xl font-bold text-white">MP</div>
-                <div className="text-xs sm:text-sm text-gray-500">Pago seguro</div>
+                <div className="text-xl sm:text-2xl font-bold text-black">MP</div>
+                <div className="text-xs sm:text-sm text-gray-600 font-medium">Pago seguro</div>
               </div>
             </motion.div>
-          </motion.div>
-
-          {/* Tennis ball image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="relative h-[40vh] sm:h-[50vh] lg:h-[70vh]"
-          >
-            <Image
-              src="/images/pelota-tenis.jpg"
-              alt="Pelota de tenis"
-              fill
-              className="object-contain drop-shadow-[0_0_60px_rgba(16,185,129,0.15)]"
-              priority
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
           </motion.div>
         </div>
       </div>
@@ -118,9 +112,9 @@ export default function AnimatedHero() {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center"
+          className="w-6 h-10 border-2 border-black/20 rounded-full flex justify-center"
         >
-          <motion.div className="w-1 h-3 bg-emerald-400 rounded-full mt-2" />
+          <motion.div className="w-1 h-3 bg-emerald-600 rounded-full mt-2" />
         </motion.div>
       </motion.div>
     </section>
