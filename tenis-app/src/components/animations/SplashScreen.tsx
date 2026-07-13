@@ -1,129 +1,71 @@
 "use client";
 
 import { useRef, useMemo, useEffect, useState } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { Mesh, Group, MeshBasicMaterial } from "three";
 import gsap from "gsap";
 import { createColorTexture, createBumpTexture } from "@/lib/tennis-ball-textures";
 
-// ── Animation state shape ──────────────────────────────
+// ═══════════════════════════════════════════════════════
+// State
+// ═══════════════════════════════════════════════════════
 
-interface AnimState {
-  armAngle: number;   // radians — paddle arm rotation
+interface Anim {
+  paddleX: number;    // paddle position (enters from right)
+  paddleAngle: number; // paddle rotation (windup & swing)
   ballZ: number;      // ball depth
-  ballScale: number;  // ball uniform scale
-  ballSquash: number; // y squash on impact (1 = normal)
-  glow: number;       // 0-1 rim glow intensity
-  flash: number;      // 0-1 white flash overlay
+  ballScale: number;
+  ballSquash: number;
+  impactGlow: number; // 0-1
 }
 
-// ── Player figure ──────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+// Paddle (simplified — just the paddle face)
+// ═══════════════════════════════════════════════════════
 
-const NEON = "#10b981";
-const DIM = "#065f46";
-
-function PlayerBody() {
-  return (
-    <group position={[0, 0, 0]}>
-      {/* Torso */}
-      <mesh position={[0, 0.7, 0]}>
-        <cylinderGeometry args={[0.32, 0.42, 0.75, 12]} />
-        <meshBasicMaterial color={NEON} transparent opacity={0.5} wireframe />
-      </mesh>
-      {/* Head */}
-      <mesh position={[0, 1.2, 0]}>
-        <sphereGeometry args={[0.2, 12, 12]} />
-        <meshBasicMaterial color={NEON} transparent opacity={0.6} />
-      </mesh>
-      {/* Legs */}
-      {([[-0.15, 0.25, 0], [0.15, 0.25, 0]] as [number, number, number][]).map((pos, i) => (
-        <mesh key={i} position={pos}>
-          <cylinderGeometry args={[0.06, 0.08, 0.5, 8]} />
-          <meshBasicMaterial color={DIM} transparent opacity={0.5} />
-        </mesh>
-      ))}
-    </group>
-  );
-}
-
-// ── Paddle ─────────────────────────────────────────────
-
-const PADDLE_W = 0.25;
-const PADDLE_H = 0.32;
-
-function Paddle() {
-  return (
-    <group position={[0, -0.4, 0]}>
-      {/* Handle */}
-      <mesh position={[0, -0.08, 0]}>
-        <cylinderGeometry args={[0.025, 0.03, 0.14, 8]} />
-        <meshBasicMaterial color="#555" />
-      </mesh>
-      {/* Head */}
-      <mesh position={[0, 0.12, 0]}>
-        <boxGeometry args={[PADDLE_W, PADDLE_H, 0.02]} />
-        <meshBasicMaterial color="#222" />
-      </mesh>
-      {/* Perforations */}
-      {[
-        [-0.06, 0.02], [0.06, 0.02],
-        [-0.06, 0.1], [0.06, 0.1],
-        [-0.06, 0.18], [0.06, 0.18],
-        [0, 0.06], [0, 0.14],
-      ].map(([x, y], i) => (
-        <mesh key={i} position={[x, y, 0.011]}>
-          <circleGeometry args={[0.015, 8]} />
-          <meshBasicMaterial color="#333" />
-        </mesh>
-      ))}
-    </group>
-  );
-}
-
-// ── Arm assembly ───────────────────────────────────────
-
-function Arm({ anim }: { anim: React.MutableRefObject<AnimState> }) {
+function Paddle({ anim }: { anim: React.MutableRefObject<Anim> }) {
   const groupRef = useRef<Group>(null);
 
   useFrame(() => {
     if (!groupRef.current) return;
-    // The arm pivots at the shoulder
-    groupRef.current.rotation.z = anim.current.armAngle;
+    groupRef.current.position.x = anim.current.paddleX;
+    groupRef.current.rotation.z = anim.current.paddleAngle;
   });
 
   return (
-    <group ref={groupRef} position={[0.32, 0.95, 0]}>
-      {/* Upper arm */}
-      <mesh position={[0, -0.22, 0]}>
-        <cylinderGeometry args={[0.04, 0.05, 0.4, 8]} />
-        <meshBasicMaterial color={NEON} transparent opacity={0.6} />
+    <group ref={groupRef} position={[2, 0.3, 1.2]}>
+      {/* Handle */}
+      <mesh position={[0, -0.25, 0]}>
+        <cylinderGeometry args={[0.03, 0.035, 0.25, 8]} />
+        <meshBasicMaterial color="#333" />
       </mesh>
-      {/* Forearm + paddle */}
-      <group position={[0, -0.42, 0]}>
-        <mesh position={[0, -0.1, 0]}>
-          <cylinderGeometry args={[0.03, 0.04, 0.2, 8]} />
-          <meshBasicMaterial color={DIM} transparent opacity={0.5} />
+      {/* Paddle face */}
+      <mesh position={[0, 0.02, 0]}>
+        <boxGeometry args={[0.28, 0.35, 0.025]} />
+        <meshBasicMaterial color="#1a1a1a" />
+      </mesh>
+      {/* Perforations */}
+      {[
+        [-0.07, 0.15], [0.07, 0.15],
+        [-0.07, 0.08], [0.07, 0.08],
+        [-0.07, -0.02], [0.07, -0.02],
+        [-0.04, -0.1], [0.04, -0.1],
+        [0, 0.12], [0, 0.04],
+      ].map(([x, y], i) => (
+        <mesh key={i} position={[x, y, 0.014]}>
+          <circleGeometry args={[0.015, 6]} />
+          <meshBasicMaterial color="#2a2a2a" />
         </mesh>
-        <Paddle />
-      </group>
+      ))}
     </group>
   );
 }
 
-// ── Court floor ────────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+// Ball
+// ═══════════════════════════════════════════════════════
 
-function CourtFloor() {
-  return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.3, 0]}>
-      <planeGeometry args={[6, 6]} />
-      <meshBasicMaterial color="#0a2a1a" transparent opacity={0.3} wireframe />
-    </mesh>
-  );
-}
-
-// ── Ball ───────────────────────────────────────────────
-
-function SplashBall({ anim }: { anim: React.MutableRefObject<AnimState> }) {
+function Ball({ anim }: { anim: React.MutableRefObject<Anim> }) {
   const ref = useRef<Mesh>(null);
   const colorMap = useMemo(() => createColorTexture(), []);
   const bumpMap = useMemo(() => createBumpTexture(), []);
@@ -137,8 +79,8 @@ function SplashBall({ anim }: { anim: React.MutableRefObject<AnimState> }) {
   });
 
   return (
-    <mesh ref={ref} position={[0.15, 0.5, 1.8]}>
-      <sphereGeometry args={[0.5, 32, 32]} />
+    <mesh ref={ref} position={[0, 0.3, 1.5]}>
+      <sphereGeometry args={[0.45, 32, 32]} />
       <meshStandardMaterial
         map={colorMap}
         bumpMap={bumpMap}
@@ -150,116 +92,111 @@ function SplashBall({ anim }: { anim: React.MutableRefObject<AnimState> }) {
   );
 }
 
-// ── Splash scene (R3F) ─────────────────────────────────
+// ═══════════════════════════════════════════════════════
+// Impact glow
+// ═══════════════════════════════════════════════════════
 
-function SplashScene({ onFlash, onDone }: { onFlash: () => void; onDone: () => void }) {
-  const anim = useRef<AnimState>({
-    armAngle: -0.2,
-    ballZ: 1.8,
-    ballScale: 0.6,
-    ballSquash: 1,
-    glow: 0,
-    flash: 0,
+function ImpactGlow({ anim }: { anim: React.MutableRefObject<Anim> }) {
+  const ref = useRef<Mesh>(null);
+
+  useFrame(() => {
+    if (!ref.current) return;
+    const mat = ref.current.material as MeshBasicMaterial;
+    mat.opacity = anim.current.impactGlow * 0.6;
+    const s = 1 + anim.current.impactGlow * 2;
+    ref.current.scale.set(s, s, s);
   });
 
-  const flashOverlay = useRef<Mesh>(null);
+  return (
+    <mesh ref={ref} position={[0, 0.3, 1.5]}>
+      <sphereGeometry args={[0.6, 16, 16]} />
+      <meshBasicMaterial color="#FFFFCC" transparent opacity={0} />
+    </mesh>
+  );
+}
+
+// ═══════════════════════════════════════════════════════
+// Scene
+// ═══════════════════════════════════════════════════════
+
+function SplashScene({ onFlash, onDone }: { onFlash: () => void; onDone: () => void }) {
+  const anim = useRef<Anim>({
+    paddleX: 2,
+    paddleAngle: 0,
+    ballZ: 1.5,
+    ballScale: 0.5,
+    ballSquash: 1,
+    impactGlow: 0,
+  });
 
   useEffect(() => {
     const s = anim.current;
+    const tl = gsap.timeline({ onComplete: onDone });
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        onDone();
-      },
-    });
+    // 0.00s — Paddle slides in from right
+    tl.to(s, { paddleX: 1.2, duration: 0.25, ease: "power2.out" });
 
-    // 0.0s – Breathe / hold
-    tl.to({}, { duration: 0.3 });
+    // 0.25s — Wind up (paddle goes back)
+    tl.to(s, { paddleAngle: -0.4, duration: 0.2, ease: "power2.out" });
 
-    // 0.3s – Wind up: arm goes back
+    // 0.45s — SWING forward
+    tl.to(s, { paddleAngle: 0.15, duration: 0.08, ease: "power4.in" });
+
+    // 0.53s — Impact: ball squashes + glow burst
+    tl.to(s, { ballSquash: 0.4, duration: 0.03, ease: "none" });
+    tl.to(s, { impactGlow: 1, duration: 0.03, ease: "none" }, "<");
+
+    // 0.56s — Ball decompress + glow dies
+    tl.to(s, { ballSquash: 1, duration: 0.06, ease: "power2.out" });
+    tl.to(s, { impactGlow: 0, duration: 0.15, ease: "power2.out" }, "<");
+
+    // 0.62s — Ball launches toward camera
     tl.to(s, {
-      armAngle: -0.6,
-      duration: 0.25,
-      ease: "power2.out",
-    });
-
-    // 0.55s – SWING: arm snaps forward
-    tl.to(s, {
-      armAngle: 0.5,
-      duration: 0.12,
-      ease: "power4.in",
-    });
-
-    // 0.67s – Ball compression at contact
-    tl.to(s, {
-      ballSquash: 0.45,
-      duration: 0.04,
-      ease: "none",
-    });
-
-    // 0.71s – Ball decompress
-    tl.to(s, {
-      ballSquash: 1,
-      duration: 0.06,
-      ease: "power2.out",
-    });
-
-    // 0.77s – Ball launch toward camera
-    tl.to(s, {
-      ballZ: -4,
-      ballScale: 5,
-      duration: 0.7,
+      ballZ: -4.5,
+      ballScale: 6,
+      duration: 0.6,
       ease: "power4.out",
     });
 
-    // 1.47s – Flash overlay
+    // 1.22s — Flash white
     tl.call(() => onFlash());
-    tl.to(s, { flash: 1, duration: 0.05, ease: "none" });
 
-    // 1.57s – Hold flash, begin fade
+    // 1.27s — Brief hold
     tl.to({}, { duration: 0.25 });
 
-    // 1.82s – Done (total ~2.1s)
-    // onComplete fires here
-
+    // Total: ~1.52s
     return () => {
       tl.kill();
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Render flash overlay in 3D space
-  useFrame(() => {
-    if (!flashOverlay.current) return;
-    const mat = flashOverlay.current.material as MeshBasicMaterial;
-    mat.opacity = anim.current.flash;
-  });
-
   return (
     <>
-      <CourtFloor />
-      <PlayerBody />
-      <Arm anim={anim} />
-      <SplashBall anim={anim} />
-
-      {/* Flash overlay (3D quad covering the view) */}
-      <mesh ref={flashOverlay} position={[0, 0, -5]}>
-        <planeGeometry args={[20, 20]} />
-        <meshBasicMaterial color="white" transparent opacity={0} depthWrite={false} />
+      {/* Subtle court grid */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.25, 0]}>
+        <planeGeometry args={[8, 8]} />
+        <meshBasicMaterial color="#0a2a1a" transparent opacity={0.2} wireframe />
       </mesh>
+
+      <Paddle anim={anim} />
+      <Ball anim={anim} />
+      <ImpactGlow anim={anim} />
     </>
   );
 }
 
-// ── Main wrapper ───────────────────────────────────────
+// ═══════════════════════════════════════════════════════
+// Wrapper
+// ═══════════════════════════════════════════════════════
 
 export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
   const [flash, setFlash] = useState(false);
 
   return (
     <div className="fixed inset-0 z-50 bg-black overflow-hidden">
-      {/* CSS flash overlay (front layer) */}
+      {/* Flash overlay */}
       <div
-        className={`absolute inset-0 z-10 transition-opacity duration-100 pointer-events-none ${
+        className={`absolute inset-0 z-10 transition-opacity duration-150 pointer-events-none ${
           flash ? "opacity-100" : "opacity-0"
         }`}
         style={{ backgroundColor: "#fff" }}
@@ -267,17 +204,15 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
 
       <Canvas
         camera={{ position: [0, 0, 5], fov: 50 }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         gl={{ antialias: true }}
       >
-        <ambientLight intensity={0.3} />
-        <directionalLight position={[4, 6, 4]} intensity={0.8} />
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[5, 5, 5]} intensity={0.8} />
         <directionalLight position={[-3, 2, -2]} intensity={0.2} color="#FFF5D0" />
         <SplashScene
           onFlash={() => setFlash(true)}
-          onDone={() => {
-            setTimeout(onFinish, 400);
-          }}
+          onDone={() => setTimeout(onFinish, 300)}
         />
       </Canvas>
     </div>
