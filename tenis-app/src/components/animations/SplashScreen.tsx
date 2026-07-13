@@ -84,7 +84,7 @@ function Ball({ anim }: { anim: React.MutableRefObject<Anim> }) {
       <meshStandardMaterial
         map={colorMap}
         bumpMap={bumpMap}
-        bumpScale={0.008}
+        bumpScale={0.012}
         roughness={0.8}
         metalness={0}
       />
