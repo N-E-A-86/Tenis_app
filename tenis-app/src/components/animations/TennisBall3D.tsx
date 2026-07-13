@@ -32,7 +32,7 @@ function Ball() {
         <meshStandardMaterial
           map={colorMap}
           bumpMap={bumpMap}
-          bumpScale={0.018}
+          bumpScale={0.008}
           roughness={0.82}
           metalness={0}
         />

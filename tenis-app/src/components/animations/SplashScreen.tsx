@@ -138,11 +138,11 @@ function SplashBall({ anim }: { anim: React.MutableRefObject<AnimState> }) {
 
   return (
     <mesh ref={ref} position={[0.15, 0.5, 1.8]}>
-      <sphereGeometry args={[0.3, 32, 32]} />
+      <sphereGeometry args={[0.5, 32, 32]} />
       <meshStandardMaterial
         map={colorMap}
         bumpMap={bumpMap}
-        bumpScale={0.015}
+        bumpScale={0.008}
         roughness={0.8}
         metalness={0}
       />
@@ -156,7 +156,7 @@ function SplashScene({ onFlash, onDone }: { onFlash: () => void; onDone: () => v
   const anim = useRef<AnimState>({
     armAngle: -0.2,
     ballZ: 1.8,
-    ballScale: 0.3,
+    ballScale: 0.6,
     ballSquash: 1,
     glow: 0,
     flash: 0,
@@ -207,7 +207,7 @@ function SplashScene({ onFlash, onDone }: { onFlash: () => void; onDone: () => v
     // 0.77s – Ball launch toward camera
     tl.to(s, {
       ballZ: -4,
-      ballScale: 8,
+      ballScale: 5,
       duration: 0.7,
       ease: "power4.out",
     });
