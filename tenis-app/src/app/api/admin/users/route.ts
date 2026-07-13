@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { supabaseAdmin } from "@/lib/supabase";
 import { auth } from "@/lib/auth";
 
 export async function GET() {
@@ -9,15 +9,25 @@ export async function GET() {
   }
 
   try {
-    const users = await db.query(
-      `SELECT id, name, email, role, "createdAt",
-        (SELECT count(*) FROM "Reservation" WHERE "userId" = "User"."id") as reservation_count
-       FROM "User"
-       ORDER BY "createdAt" DESC`
+    const { data: users } = await supabaseAdmin
+      .from("User")
+      .select("id, name, email, role, createdAt")
+      .order("createdAt", { ascending: false });
+
+    // Obtener counts de reservas para cada usuario
+    const usersWithCounts = await Promise.all(
+      (users ?? []).map(async (user) => {
+        const { count } = await supabaseAdmin
+          .from("Reservation")
+          .select("*", { count: "exact", head: true })
+          .eq("userId", user.id);
+        return { ...user, reservation_count: count ?? 0 };
+      })
     );
 
-    return NextResponse.json(users ?? []);
+    return NextResponse.json(usersWithCounts);
   } catch (error) {
+    console.error("Error fetching users:", error);
     return NextResponse.json(
       { error: "Error al obtener usuarios" },
       { status: 500 }

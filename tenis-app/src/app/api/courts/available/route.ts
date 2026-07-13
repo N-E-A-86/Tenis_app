@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { supabaseAdmin } from "@/lib/supabase";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -20,14 +20,13 @@ export async function GET(req: NextRequest) {
     const nextDay = new Date(selectedDate);
     nextDay.setDate(nextDay.getDate() + 1);
 
-    const reservations = await db.query(
-      `SELECT "startTime", "endTime" FROM "Reservation"
-       WHERE "courtId" = $1
-         AND "status" = ANY($2)
-         AND "startTime" >= $3
-         AND "endTime" < $4`,
-      [courtId, ["PENDING", "CONFIRMED"], selectedDate.toISOString(), nextDay.toISOString()]
-    );
+    const { data: reservations } = await supabaseAdmin
+      .from("Reservation")
+      .select("startTime, endTime")
+      .eq("courtId", courtId)
+      .in("status", ["PENDING", "CONFIRMED"])
+      .gte("startTime", selectedDate.toISOString())
+      .lt("endTime", nextDay.toISOString());
 
     const bookedSlots = (reservations ?? []).map((r) => {
       const start = new Date(r.startTime);

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { supabaseAdmin } from "@/lib/supabase";
 import { mpPayment } from "@/lib/mercadopago";
 
 export async function POST(req: NextRequest) {
@@ -47,17 +47,15 @@ export async function POST(req: NextRequest) {
         break;
     }
 
-    await db.query(
-      `UPDATE "Payment" SET "status" = $1, "mpPaymentId" = $2, "updatedAt" = NOW()
-       WHERE "reservationId" = $3`,
-      [paymentStatus, Number(paymentId), reservationId]
-    );
+    await supabaseAdmin
+      .from("Payment")
+      .update({ status: paymentStatus, mpPaymentId: Number(paymentId) })
+      .eq("reservationId", reservationId);
 
-    await db.query(
-      `UPDATE "Reservation" SET "status" = $1, "updatedAt" = NOW()
-       WHERE "id" = $2`,
-      [reservationStatus, reservationId]
-    );
+    await supabaseAdmin
+      .from("Reservation")
+      .update({ status: reservationStatus })
+      .eq("id", reservationId);
 
     return NextResponse.json({ received: true });
   } catch (error) {

@@ -3,26 +3,28 @@ import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { authConfig } from "./auth.config";
-import { db } from "./db";
+import { supabaseAdmin } from "./supabase";
 
 async function findOrCreateUser(
   email: string,
   name?: string,
   image?: string
 ): Promise<{ id: string; email: string; name: string | null; image: string | null; role: string } | null> {
-  const existing = await db.queryOne(
-    'SELECT id, email, name, image, role FROM "User" WHERE email = $1',
-    [email]
-  );
+  const { data: existing } = await supabaseAdmin
+    .from("User")
+    .select("id, email, name, image, role")
+    .eq("email", email)
+    .maybeSingle();
 
   if (existing) return existing;
 
-  const [created] = await db.query(
-    'INSERT INTO "User" (email, name, image) VALUES ($1, $2, $3) RETURNING id, email, name, image, role',
-    [email, name || email.split("@")[0], image]
-  );
+  const { data: created } = await supabaseAdmin
+    .from("User")
+    .insert({ email, name: name || email.split("@")[0], image })
+    .select("id, email, name, image, role")
+    .single();
 
-  return created;
+  return created ?? null;
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -54,10 +56,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
-        const user = await db.queryOne(
-          'SELECT * FROM "User" WHERE email = $1',
-          [credentials.email as string]
-        );
+        const { data: user } = await supabaseAdmin
+          .from("User")
+          .select("*")
+          .eq("email", credentials.email as string)
+          .maybeSingle();
 
         if (!user || !user.password) return null;
 

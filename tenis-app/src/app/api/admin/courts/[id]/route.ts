@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { supabaseAdmin } from "@/lib/supabase";
 import { auth } from "@/lib/auth";
 
 export async function PUT(
@@ -15,26 +15,31 @@ export async function PUT(
 
   try {
     const body = await req.json();
-    const [court] = await db.query(
-      `UPDATE "Court"
-       SET "name" = $1, "description" = $2, "surfaceType" = $3,
-           "pricePerHour" = $4, "imageUrl" = $5, "isActive" = $6,
-           "updatedAt" = NOW()
-       WHERE "id" = $7
-       RETURNING *`,
-      [
-        body.name,
-        body.description,
-        body.surfaceType,
-        body.pricePerHour ? parseFloat(body.pricePerHour) : null,
-        body.imageUrl,
-        body.isActive,
-        id,
-      ]
-    );
+
+    const { data: court, error } = await supabaseAdmin
+      .from("Court")
+      .update({
+        name: body.name,
+        description: body.description,
+        surfaceType: body.surfaceType,
+        pricePerHour: body.pricePerHour ? parseFloat(body.pricePerHour) : null,
+        imageUrl: body.imageUrl,
+        isActive: body.isActive,
+      })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) {
+      return NextResponse.json(
+        { error: "Error al actualizar cancha" },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json(court);
   } catch (error) {
+    console.error("Error updating court:", error);
     return NextResponse.json(
       { error: "Error al actualizar cancha" },
       { status: 500 }
@@ -54,13 +59,21 @@ export async function DELETE(
   const { id } = await params;
 
   try {
-    await db.query(
-      `UPDATE "Court" SET "isActive" = false, "updatedAt" = NOW() WHERE "id" = $1`,
-      [id]
-    );
+    const { error } = await supabaseAdmin
+      .from("Court")
+      .update({ isActive: false })
+      .eq("id", id);
+
+    if (error) {
+      return NextResponse.json(
+        { error: "Error al eliminar cancha" },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error("Error deleting court:", error);
     return NextResponse.json(
       { error: "Error al eliminar cancha" },
       { status: 500 }

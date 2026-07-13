@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { supabaseAdmin } from "@/lib/supabase";
 import { auth } from "@/lib/auth";
 
 export async function GET(req: NextRequest) {
@@ -13,13 +13,12 @@ export async function GET(req: NextRequest) {
   const date = searchParams.get("date");
 
   try {
-    const conditions: string[] = [];
-    const values: any[] = [];
-    let paramIndex = 1;
+    let query = supabaseAdmin
+      .from("Reservation")
+      .select("*, user:userId(*), court:courtId(*), payment:reservationId(*)");
 
     if (status) {
-      conditions.push(`r."status" = $${paramIndex++}`);
-      values.push(status);
+      query = query.eq("status", status);
     }
 
     if (date) {
@@ -27,30 +26,17 @@ export async function GET(req: NextRequest) {
       selectedDate.setHours(0, 0, 0, 0);
       const nextDay = new Date(selectedDate);
       nextDay.setDate(nextDay.getDate() + 1);
-      conditions.push(`r."startTime" >= $${paramIndex++}`);
-      values.push(selectedDate.toISOString());
-      conditions.push(`r."endTime" < $${paramIndex++}`);
-      values.push(nextDay.toISOString());
+      query = query
+        .gte("startTime", selectedDate.toISOString())
+        .lt("endTime", nextDay.toISOString());
     }
 
-    const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
-
-    const reservations = await db.query(
-      `SELECT r.*,
-        row_to_json(u.*) as "user",
-        row_to_json(c.*) as court,
-        row_to_json(p.*) as payment
-       FROM "Reservation" r
-       LEFT JOIN "User" u ON u.id = r."userId"
-       LEFT JOIN "Court" c ON c.id = r."courtId"
-       LEFT JOIN "Payment" p ON p."reservationId" = r.id
-       ${whereClause}
-       ORDER BY r."startTime" DESC`,
-      values
-    );
+    const { data: reservations } = await query
+      .order("startTime", { ascending: false });
 
     return NextResponse.json(reservations ?? []);
   } catch (error) {
+    console.error("Error fetching reservations:", error);
     return NextResponse.json(
       { error: "Error al obtener reservas" },
       { status: 500 }

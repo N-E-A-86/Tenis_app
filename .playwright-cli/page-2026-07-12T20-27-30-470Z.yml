@@ -1,0 +1,70 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - link "🎾 TenisClub" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: 🎾 TenisClub
+      - generic [ref=e7]:
+        - link "Canchas" [ref=e8] [cursor=pointer]:
+          - /url: /canchas
+        - generic [ref=e9]:
+          - link "Ingresar" [ref=e10] [cursor=pointer]:
+            - /url: /login
+          - link "Registrarse" [ref=e11] [cursor=pointer]:
+            - /url: /register
+  - main [ref=e12]:
+    - generic [ref=e13]:
+      - generic [ref=e20]:
+        - heading "Reservá tu cancha de tenis en segundos" [level=1] [ref=e21]
+        - paragraph [ref=e22]: Gestioná tus reservas, pagá con Mercado Pago y disfrutá del mejor tenis. Sin complicaciones, sin llamadas.
+        - generic [ref=e23]:
+          - link "Ver canchas" [ref=e24] [cursor=pointer]:
+            - /url: /canchas
+          - link "Registrarse" [ref=e25] [cursor=pointer]:
+            - /url: /register
+        - generic [ref=e26]:
+          - generic [ref=e27]:
+            - generic [ref=e28]: "4"
+            - generic [ref=e29]: Canchas
+          - generic [ref=e30]:
+            - generic [ref=e31]: 08-00
+            - generic [ref=e32]: Horario
+          - generic [ref=e33]:
+            - generic [ref=e34]: MP
+            - generic [ref=e35]: Pago seguro
+      - generic [ref=e43]:
+        - heading "Nuestras Canchas" [level=2] [ref=e44]
+        - paragraph [ref=e45]: Canchas en perfecto estado, iluminación profesional y todo lo necesario para que disfrutes al máximo tu partido.
+      - generic [ref=e51]:
+        - heading "¿Por qué TenisClub?" [level=2] [ref=e54]
+        - generic [ref=e55]:
+          - generic [ref=e57]:
+            - generic [ref=e58]: ⚡
+            - heading "Reserva Rápida" [level=3] [ref=e59]
+            - paragraph [ref=e60]: Elegí cancha, horario y pagá en minutos. Sin formularios eternos ni llamadas telefónicas.
+          - generic [ref=e62]:
+            - generic [ref=e63]: 🔒
+            - heading "Pago Seguro" [level=3] [ref=e64]
+            - paragraph [ref=e65]: Procesamos los pagos con Mercado Pago. Tus datos están siempre protegidos.
+          - generic [ref=e67]:
+            - generic [ref=e68]: 📱
+            - heading "Gestión Online" [level=3] [ref=e69]
+            - paragraph [ref=e70]: Administrá tus reservas desde cualquier dispositivo. Cancelá o reprogramá fácilmente.
+      - generic [ref=e74]:
+        - heading "Listo para jugar?" [level=2] [ref=e75]
+        - paragraph [ref=e76]: Registrate gratis y empezá a reservar tu cancha favorita en segundos.
+        - link "Crear cuenta gratis" [ref=e77] [cursor=pointer]:
+          - /url: /register
+  - contentinfo [ref=e78]:
+    - generic [ref=e80]:
+      - generic [ref=e81]:
+        - generic [ref=e82]: 🎾 TenisClub
+        - paragraph [ref=e83]: Reservá tu cancha fácil y rápido
+      - generic [ref=e84]:
+        - link "Términos" [ref=e85] [cursor=pointer]:
+          - /url: "#"
+        - link "Privacidad" [ref=e86] [cursor=pointer]:
+          - /url: "#"
+        - link "Contacto" [ref=e87] [cursor=pointer]:
+          - /url: "#"
+      - paragraph [ref=e88]: © 2026 TenisClub. Todos los derechos reservados.

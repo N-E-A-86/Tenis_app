@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { supabaseAdmin } from "@/lib/supabase";
 import { auth } from "@/lib/auth";
 
 export async function PATCH(
@@ -15,10 +15,11 @@ export async function PATCH(
   const body = await req.json();
 
   try {
-    const reservation = await db.queryOne(
-      `SELECT * FROM "Reservation" WHERE "id" = $1`,
-      [id]
-    );
+    const { data: reservation } = await supabaseAdmin
+      .from("Reservation")
+      .select("*")
+      .eq("id", id)
+      .maybeSingle();
 
     if (!reservation) {
       return NextResponse.json(
@@ -41,12 +42,12 @@ export async function PATCH(
       }
     }
 
-    const [updated] = await db.query(
-      `UPDATE "Reservation" SET "status" = $1, "updatedAt" = NOW()
-       WHERE "id" = $2
-       RETURNING *`,
-      [body.status, id]
-    );
+    const { data: updated } = await supabaseAdmin
+      .from("Reservation")
+      .update({ status: body.status })
+      .eq("id", id)
+      .select()
+      .single();
 
     return NextResponse.json(updated);
   } catch (error) {

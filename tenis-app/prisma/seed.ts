@@ -1,9 +1,13 @@
-import { Pool } from "pg";
+import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL!,
-  ssl: { rejectUnauthorized: false },
-});
+dotenv.config({ path: "../.env" });
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  { auth: { autoRefreshToken: false, persistSession: false } }
+);
 
 const courts = [
   {
@@ -40,18 +44,27 @@ async function main() {
   console.log("🌱 Seeding database...");
 
   for (const court of courts) {
-    const { rows: existing } = await pool.query(
-      `SELECT id FROM "Court" WHERE name = $1`,
-      [court.name]
-    );
+    const { data: existing } = await supabase
+      .from("Court")
+      .select("id")
+      .eq("name", court.name)
+      .maybeSingle();
 
-    if (existing.length === 0) {
-      await pool.query(
-        `INSERT INTO "Court" (name, description, "surfaceType", "pricePerHour")
-         VALUES ($1, $2, $3, $4)`,
-        [court.name, court.description, court.surfaceType, court.pricePerHour]
-      );
-      console.log(`  ✓ ${court.name}`);
+    if (!existing) {
+      const { error } = await supabase
+        .from("Court")
+        .insert({
+          name: court.name,
+          description: court.description,
+          surfaceType: court.surfaceType,
+          pricePerHour: court.pricePerHour,
+        });
+
+      if (error) {
+        console.log(`  ✗ ${court.name}: ${error.message}`);
+      } else {
+        console.log(`  ✓ ${court.name}`);
+      }
     } else {
       console.log(`  - ${court.name} (already exists)`);
     }
@@ -64,7 +77,4 @@ main()
   .catch((e) => {
     console.error(e);
     process.exit(1);
-  })
-  .finally(async () => {
-    await pool.end();
   });

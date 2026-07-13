@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { supabaseAdmin } from "@/lib/supabase";
 import { auth } from "@/lib/auth";
 import { preference } from "@/lib/mercadopago";
 
@@ -19,16 +19,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const [reservation] = await db.query(
-      `SELECT r.*,
-        row_to_json(c.*) as court,
-        row_to_json(u.*) as "user"
-       FROM "Reservation" r
-       LEFT JOIN "Court" c ON c.id = r."courtId"
-       LEFT JOIN "User" u ON u.id = r."userId"
-       WHERE r."id" = $1`,
-      [reservationId]
-    );
+    const { data: reservation } = await supabaseAdmin
+      .from("Reservation")
+      .select("*, court:courtId(*), user:userId(*)")
+      .eq("id", reservationId)
+      .single();
 
     if (!reservation) {
       return NextResponse.json(
@@ -50,15 +45,13 @@ export async function POST(req: NextRequest) {
 
     const mpPreference = await preference.create({
       body: {
-        items: [
-          {
-            id: reservation.id,
-            title: `Reserva: ${reservation.court.name} - ${new Date(reservation.startTime).toLocaleDateString("es-AR")} ${new Date(reservation.startTime).toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" })}`,
-            quantity: 1,
-            unit_price: Number(reservation.totalPrice),
-            currency_id: "ARS",
-          },
-        ],
+        items: [{
+          id: reservation.id,
+          title: `Reserva: ${reservation.court.name} - ${new Date(reservation.startTime).toLocaleDateString("es-AR")} ${new Date(reservation.startTime).toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" })}`,
+          quantity: 1,
+          unit_price: Number(reservation.totalPrice),
+          currency_id: "ARS",
+        }],
         payer: {
           email: reservation.user.email,
           name: reservation.user.name || undefined,
@@ -70,17 +63,22 @@ export async function POST(req: NextRequest) {
         },
         auto_return: "approved",
         notification_url: `${process.env.NEXT_PUBLIC_APP_URL}/api/payments/webhook`,
-        metadata: {
-          reservation_id: reservation.id,
-        },
+        metadata: { reservation_id: reservation.id },
       },
     });
 
-    await db.query(
-      `INSERT INTO "Payment" ("reservationId", amount, status, "mpPreferenceId")
-       VALUES ($1, $2, $3, $4)`,
-      [reservation.id, reservation.totalPrice, "PENDING", mpPreference.id]
-    );
+    const { error: insertError } = await supabaseAdmin
+      .from("Payment")
+      .insert({
+        reservationId: reservation.id,
+        amount: reservation.totalPrice,
+        status: "PENDING",
+        mpPreferenceId: mpPreference.id,
+      });
+
+    if (insertError) {
+      console.error("Error inserting payment:", insertError);
+    }
 
     return NextResponse.json({
       preferenceId: mpPreference.id,

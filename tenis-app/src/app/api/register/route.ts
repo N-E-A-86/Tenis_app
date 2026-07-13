@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { db } from "@/lib/db";
+import { supabaseAdmin } from "@/lib/supabase";
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,10 +20,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const existingUser = await db.queryOne(
-      `SELECT id FROM "User" WHERE email = $1`,
-      [email]
-    );
+    const { data: existingUser } = await supabaseAdmin
+      .from("User")
+      .select("id")
+      .eq("email", email)
+      .maybeSingle();
 
     if (existingUser) {
       return NextResponse.json(
@@ -34,10 +35,18 @@ export async function POST(req: NextRequest) {
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    const [user] = await db.query(
-      `INSERT INTO "User" (email, name, password) VALUES ($1, $2, $3) RETURNING id, email, name`,
-      [email, name || email.split("@")[0], hashedPassword]
-    );
+    const { data: user, error: insertError } = await supabaseAdmin
+      .from("User")
+      .insert({ email, name: name || email.split("@")[0], password: hashedPassword })
+      .select("id, email, name")
+      .single();
+
+    if (insertError || !user) {
+      return NextResponse.json(
+        { error: "Error al registrar usuario" },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json(
       { id: user.id, email: user.email, name: user.name },
