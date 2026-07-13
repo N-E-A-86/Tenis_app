@@ -12,7 +12,7 @@ export default function AnimatedHero() {
     <section ref={ref} className="relative min-h-[90vh] flex items-center overflow-hidden">
       {/* Background image */}
       <Image
-        src="/images/pelota-tenis.jpg"
+        src="/images/pelota-tenis-2.jpg"
         alt=""
         fill
         className="object-cover"
