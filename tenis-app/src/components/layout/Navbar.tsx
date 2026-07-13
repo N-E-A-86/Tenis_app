@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { TennisBallIcon } from "@/components/ui/Icons";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -14,8 +15,9 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-white">
-              🎾 Tenis<span className="text-emerald-400">Club</span>
+            <TennisBallIcon size={28} className="text-emerald-400" />
+            <span className="text-xl font-bold text-white">
+              Tenis<span className="text-emerald-400">Club</span>
             </span>
           </Link>
 

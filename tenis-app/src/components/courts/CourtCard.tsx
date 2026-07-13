@@ -1,9 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Card from "@/components/ui/Card";
 import { formatPrice } from "@/lib/utils";
+import {
+  CourtClayIcon,
+  CourtHardIcon,
+  CourtGrassIcon,
+  CourtSyntheticIcon,
+} from "@/components/ui/Icons";
 import type { CourtData, SurfaceType } from "@/types";
 
 const surfaceLabels: Record<SurfaceType, string> = {
@@ -20,6 +27,13 @@ const surfaceColors: Record<SurfaceType, string> = {
   SYNTHETIC: "bg-purple-700/30 text-purple-300 border-purple-700/50",
 };
 
+const surfaceIcons: Record<SurfaceType, typeof CourtClayIcon> = {
+  CLAY: CourtClayIcon,
+  HARD: CourtHardIcon,
+  GRASS: CourtGrassIcon,
+  SYNTHETIC: CourtSyntheticIcon,
+};
+
 interface CourtCardProps {
   court: CourtData;
   index: number;
@@ -34,17 +48,22 @@ export default function CourtCard({ court, index }: CourtCardProps) {
     >
       <Link href={`/canchas/${court.id}`}>
         <Card hover className="group cursor-pointer h-full">
-          {/* Image placeholder with gradient */}
+          {/* Image */}
           <div className="relative h-48 bg-gradient-to-br from-emerald-900/50 to-black overflow-hidden">
             {court.imageUrl ? (
-              <img
+              <Image
                 src={court.imageUrl}
                 alt={court.name}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
-                <span className="text-6xl opacity-20">🎾</span>
+                {(() => {
+                  const Icon = surfaceIcons[court.surfaceType as SurfaceType] || CourtClayIcon;
+                  return <Icon size={80} className="opacity-15" />;
+                })()}
               </div>
             )}
             <div className="absolute top-3 right-3">

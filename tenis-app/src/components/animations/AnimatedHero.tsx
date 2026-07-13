@@ -15,7 +15,8 @@ export default function AnimatedHero() {
       {/* Background gradient effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/40 via-black to-black" />
       <div className="absolute top-1/4 -left-32 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-yellow-300/8 rounded-full blur-3xl" />
+      <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -32,7 +33,7 @@ export default function AnimatedHero() {
               className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight"
             >
               Reservá tu{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-400 to-yellow-300">
                 cancha de tenis
               </span>{" "}
               en segundos

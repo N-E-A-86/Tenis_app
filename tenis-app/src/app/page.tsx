@@ -1,6 +1,7 @@
 import AnimatedHero from "@/components/animations/AnimatedHero";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import CourtGrid from "@/components/courts/CourtGrid";
+import { LightningIcon, LockIcon, DeviceIcon } from "@/components/ui/Icons";
 
 export default function Home() {
   return (
@@ -40,7 +41,7 @@ export default function Home() {
             {features.map((feature, i) => (
               <ScrollReveal key={feature.title} delay={i * 0.15}>
                 <div className="p-6 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl text-center">
-                  <div className="text-4xl mb-4">{feature.icon}</div>
+                  <feature.Icon size={36} className="text-emerald-400 mx-auto mb-4" />
                   <h3 className="text-xl font-semibold text-white mb-2">
                     {feature.title}
                   </h3>
@@ -56,7 +57,7 @@ export default function Home() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
-            <div className="p-12 bg-gradient-to-r from-emerald-900/40 to-black border border-emerald-500/20 rounded-2xl">
+            <div className="p-12 bg-gradient-to-r from-emerald-900/40 via-black to-yellow-950/20 border border-emerald-500/20 rounded-2xl">
               <h2 className="text-3xl sm:text-4xl font-bold text-white">
                 Listo para jugar?
               </h2>
@@ -80,19 +81,19 @@ export default function Home() {
 
 const features = [
   {
-    icon: "⚡",
+    Icon: LightningIcon,
     title: "Reserva Rápida",
     description:
       "Elegí cancha, horario y pagá en minutos. Sin formularios eternos ni llamadas telefónicas.",
   },
   {
-    icon: "🔒",
+    Icon: LockIcon,
     title: "Pago Seguro",
     description:
       "Procesamos los pagos con Mercado Pago. Tus datos están siempre protegidos.",
   },
   {
-    icon: "📱",
+    Icon: DeviceIcon,
     title: "Gestión Online",
     description:
       "Administrá tus reservas desde cualquier dispositivo. Cancelá o reprogramá fácilmente.",

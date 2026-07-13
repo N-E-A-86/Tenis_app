@@ -2,19 +2,33 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import PageTransition from "@/components/animations/PageTransition";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import { formatPrice } from "@/lib/utils";
-import type { CourtData, TimeSlot } from "@/types";
+import {
+  CourtClayIcon,
+  CourtHardIcon,
+  CourtGrassIcon,
+  CourtSyntheticIcon,
+} from "@/components/ui/Icons";
+import type { CourtData, TimeSlot, SurfaceType } from "@/types";
 
 const surfaceLabels: Record<string, string> = {
   CLAY: "Polvo de ladrillo",
   HARD: "Dura",
   GRASS: "Césped",
   SYNTHETIC: "Sintética",
+};
+
+const surfaceIcons: Record<string, typeof CourtClayIcon> = {
+  CLAY: CourtClayIcon,
+  HARD: CourtHardIcon,
+  GRASS: CourtGrassIcon,
+  SYNTHETIC: CourtSyntheticIcon,
 };
 
 export default function CourtDetailPage() {
@@ -149,15 +163,22 @@ export default function CourtDetailPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <div className="h-72 rounded-xl bg-gradient-to-br from-emerald-900/50 to-black border border-white/10 flex items-center justify-center mb-6">
+              <div className="relative h-72 rounded-xl bg-gradient-to-br from-emerald-900/50 to-black border border-white/10 overflow-hidden mb-6">
                 {court.imageUrl ? (
-                  <img
+                  <Image
                     src={court.imageUrl}
                     alt={court.name}
-                    className="w-full h-full object-cover rounded-xl"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 66vw"
                   />
                 ) : (
-                  <span className="text-8xl opacity-20">🎾</span>
+                  <div className="w-full h-full flex items-center justify-center">
+                    {(() => {
+                      const Icon = surfaceIcons[court.surfaceType] || CourtClayIcon;
+                      return <Icon size={100} className="opacity-15" />;
+                    })()}
+                  </div>
                 )}
               </div>
 
