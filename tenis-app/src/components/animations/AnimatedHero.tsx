@@ -39,10 +39,10 @@ export default function AnimatedHero() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-black leading-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-200 leading-tight"
             >
               Reservá tu{" "}
-              <span className="text-emerald-700">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-yellow-300 to-orange-400">
                 cancha de tenis
               </span>{" "}
               en segundos
