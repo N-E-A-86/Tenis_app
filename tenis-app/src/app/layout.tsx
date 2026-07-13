@@ -35,6 +35,7 @@ export const metadata: Metadata = {
     title: "TenisClub",
   },
   icons: {
+    icon: "/favicon.svg",
     apple: "/icons/icon-192.svg",
   },
   openGraph: {
