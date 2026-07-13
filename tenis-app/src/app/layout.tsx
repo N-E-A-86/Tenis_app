@@ -37,6 +37,30 @@ export const metadata: Metadata = {
   icons: {
     apple: "/icons/icon-192.svg",
   },
+  openGraph: {
+    title: "TenisClub",
+    description:
+      "Reservá canchas de tenis fácil y rápido. Pagá con Mercado Pago.",
+    url: "https://tenis-app-sigma.vercel.app",
+    siteName: "TenisClub",
+    images: [
+      {
+        url: "/images/pelota-tenis.jpg",
+        width: 1024,
+        height: 905,
+        alt: "TenisClub - Reservá tu cancha",
+      },
+    ],
+    locale: "es_AR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TenisClub",
+    description:
+      "Reservá canchas de tenis fácil y rápido. Pagá con Mercado Pago.",
+    images: ["/images/pelota-tenis.jpg"],
+  },
 };
 
 export default function RootLayout({
