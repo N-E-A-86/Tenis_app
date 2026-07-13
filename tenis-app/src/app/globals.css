@@ -7,19 +7,19 @@
   --font-mono: var(--font-geist-mono);
 }
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #27272a transparent;
+/* Fondo oscuro global */
+:root {
+  color-scheme: dark;
 }
 
 /* Touch feedback para mobile */
 * {
   -webkit-tap-highlight-color: rgba(16, 185, 129, 0.2);
+  scrollbar-width: thin;
+  scrollbar-color: #27272a transparent;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   /* Safe area padding para notched phones */
   padding-top: env(safe-area-inset-top);

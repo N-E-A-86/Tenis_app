@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import dynamic from "next/dynamic";
-
-const TennisBall3D = dynamic(() => import("./TennisBall3D"), { ssr: false });
 
 export default function AnimatedHero() {
   const ref = useRef(null);
@@ -30,7 +28,7 @@ export default function AnimatedHero() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
             >
               Reservá tu{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-400 to-yellow-300">
@@ -43,7 +41,7 @@ export default function AnimatedHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-6 text-lg text-gray-400 max-w-lg"
+              className="mt-6 text-base sm:text-lg text-gray-400 max-w-lg"
             >
               Gestioná tus reservas, pagá con Mercado Pago y disfrutá del mejor
               tenis. Sin complicaciones, sin llamadas.
@@ -57,13 +55,13 @@ export default function AnimatedHero() {
             >
               <a
                 href="/canchas"
-                className="px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-medium transition-all shadow-lg shadow-emerald-500/25"
+                className="px-6 sm:px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-medium transition-all shadow-lg shadow-emerald-500/25"
               >
                 Ver canchas
               </a>
               <a
                 href="/register"
-                className="px-8 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg font-medium transition-all backdrop-blur-sm"
+                className="px-6 sm:px-8 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg font-medium transition-all backdrop-blur-sm"
               >
                 Registrarse
               </a>
@@ -74,31 +72,38 @@ export default function AnimatedHero() {
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className="mt-12 flex gap-8"
+              className="mt-10 flex gap-6 sm:gap-8"
             >
               <div>
-                <div className="text-2xl font-bold text-white">4</div>
-                <div className="text-sm text-gray-500">Canchas</div>
+                <div className="text-xl sm:text-2xl font-bold text-white">4</div>
+                <div className="text-xs sm:text-sm text-gray-500">Canchas</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-white">08-00</div>
-                <div className="text-sm text-gray-500">Horario</div>
+                <div className="text-xl sm:text-2xl font-bold text-white">08-00</div>
+                <div className="text-xs sm:text-sm text-gray-500">Horario</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-white">MP</div>
-                <div className="text-sm text-gray-500">Pago seguro</div>
+                <div className="text-xl sm:text-2xl font-bold text-white">MP</div>
+                <div className="text-xs sm:text-sm text-gray-500">Pago seguro</div>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* 3D Ball */}
+          {/* Tennis ball image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 1, delay: 0.3 }}
-            className="hidden lg:block h-[70vh] relative"
+            className="relative h-[40vh] sm:h-[50vh] lg:h-[70vh]"
           >
-            <TennisBall3D />
+            <Image
+              src="/images/pelota-tenis.jpg"
+              alt="Pelota de tenis"
+              fill
+              className="object-contain drop-shadow-[0_0_60px_rgba(16,185,129,0.15)]"
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </motion.div>
         </div>
       </div>
