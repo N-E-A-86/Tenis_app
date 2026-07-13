@@ -12,10 +12,18 @@
   scrollbar-color: #27272a transparent;
 }
 
+/* Touch feedback para mobile */
+* {
+  -webkit-tap-highlight-color: rgba(16, 185, 129, 0.2);
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+  /* Safe area padding para notched phones */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* Animación de gradiente para el fondo */
@@ -28,4 +36,22 @@ body {
 .animate-gradient {
   background-size: 200% 200%;
   animation: gradient-shift 8s ease infinite;
+}
+
+/* Ajustes para inputs en iOS (evitar zoom automático) */
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
+/* Prevenir selección accidental en elementos táctiles */
+button,
+a {
+  -webkit-touch-callout: none;
+}
+
+/* Scroll suave */
+html {
+  scroll-behavior: smooth;
 }

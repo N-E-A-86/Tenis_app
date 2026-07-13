@@ -244,7 +244,7 @@ export default function CourtDetailPage() {
                 {slots.length === 0 ? (
                   <p className="text-sm text-gray-500">Cargando horarios...</p>
                 ) : (
-                  <div className="grid grid-cols-4 gap-2">
+                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                     {slots.map((slot) => (
                       <button
                         key={slot.hour}

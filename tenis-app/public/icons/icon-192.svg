@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <rect width="192" height="192" rx="32" fill="#000000"/>
+  <circle cx="96" cy="96" r="56" fill="#10B981" opacity="0.15"/>
+  <circle cx="96" cy="96" r="48" fill="none" stroke="#10B981" stroke-width="2.5" opacity="0.4"/>
+  <circle cx="96" cy="96" r="36" fill="none" stroke="#10B981" stroke-width="2" opacity="0.3"/>
+  <circle cx="96" cy="96" r="24" fill="none" stroke="#10B981" stroke-width="1.5" opacity="0.2"/>
+  <path d="M96 48 A48 48 0 0 1 144 96" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round"/>
+  <path d="M96 144 A48 48 0 0 1 48 96" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round"/>
+  <text x="96" y="104" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="bold" font-size="32" fill="#10B981">TC</text>
+</svg>
