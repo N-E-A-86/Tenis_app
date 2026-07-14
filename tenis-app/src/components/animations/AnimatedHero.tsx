@@ -42,7 +42,7 @@ export default function AnimatedHero() {
               className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-200 leading-tight"
             >
               Reservá tu{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-yellow-300 to-orange-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-orange-300 to-yellow-200">
                 cancha de tenis
               </span>{" "}
               <span className="text-black">en segundos</span>
@@ -68,7 +68,7 @@ export default function AnimatedHero() {
                 href="/canchas"
                 className="px-6 sm:px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium transition-all shadow-lg shadow-emerald-600/30"
               >
-                Ver canchas
+                RESERVAR CANCHA
               </a>
               <a
                 href="/register"

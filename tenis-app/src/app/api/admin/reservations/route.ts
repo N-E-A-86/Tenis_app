@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
   try {
     let query = supabaseAdmin
       .from("Reservation")
-      .select("*, user:userId(*), court:courtId(*), payment:reservationId(*)");
+      .select("*, user:userId(*), court:courtId(*), payment:Payment!reservationId(amount, status, method, createdAt)");
 
     if (status) {
       query = query.eq("status", status);

@@ -30,7 +30,7 @@ export const authConfig: NextAuthConfig = {
 
       // Redirigir login/register si ya está logueado
       if ((pathname === "/login" || pathname === "/register") && isLoggedIn) {
-        return Response.redirect(new URL("/dashboard", nextUrl));
+        return Response.redirect(new URL("/", nextUrl));
       }
 
       return true;

@@ -9,23 +9,41 @@ export async function GET() {
   }
 
   try {
+    // Fetch all users
     const { data: users } = await supabaseAdmin
       .from("User")
-      .select("id, name, email, role, createdAt")
+      .select("id, name, email, role, phone, createdAt")
       .order("createdAt", { ascending: false });
 
-    // Obtener counts de reservas para cada usuario
-    const usersWithCounts = await Promise.all(
-      (users ?? []).map(async (user) => {
-        const { count } = await supabaseAdmin
-          .from("Reservation")
-          .select("*", { count: "exact", head: true })
-          .eq("userId", user.id);
-        return { ...user, reservation_count: count ?? 0 };
-      })
-    );
+    // Fetch all reservations in one query to avoid N+1
+    const { data: reservations } = await supabaseAdmin
+      .from("Reservation")
+      .select("userId, totalAmount");
 
-    return NextResponse.json(usersWithCounts);
+    // Aggregate stats per user
+    const statsByUser: Record<string, { count: number; totalSpent: number }> = {};
+
+    for (const r of reservations ?? []) {
+      if (!statsByUser[r.userId]) {
+        statsByUser[r.userId] = { count: 0, totalSpent: 0 };
+      }
+      statsByUser[r.userId].count += 1;
+      statsByUser[r.userId].totalSpent += Number(r.totalAmount ?? 0);
+    }
+
+    // Join stats into users
+    const usersWithStats = (users ?? []).map((user) => ({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      phone: user.phone,
+      createdAt: user.createdAt,
+      reservationCount: statsByUser[user.id]?.count ?? 0,
+      totalSpent: statsByUser[user.id]?.totalSpent ?? 0,
+    }));
+
+    return NextResponse.json(usersWithStats);
   } catch (error) {
     console.error("Error fetching users:", error);
     return NextResponse.json(

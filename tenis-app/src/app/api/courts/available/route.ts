@@ -20,25 +20,44 @@ export async function GET(req: NextRequest) {
     const nextDay = new Date(selectedDate);
     nextDay.setDate(nextDay.getDate() + 1);
 
-    const { data: reservations } = await supabaseAdmin
-      .from("Reservation")
-      .select("startTime, endTime")
-      .eq("courtId", courtId)
-      .in("status", ["PENDING", "CONFIRMED"])
-      .gte("startTime", selectedDate.toISOString())
-      .lt("endTime", nextDay.toISOString());
+    const [resResult, blockedResult] = await Promise.all([
+      supabaseAdmin
+        .from("Reservation")
+        .select("startTime, endTime")
+        .eq("courtId", courtId)
+        .in("status", ["PENDING", "CONFIRMED"])
+        .gte("startTime", selectedDate.toISOString())
+        .lt("endTime", nextDay.toISOString()),
+      supabaseAdmin
+        .from("BlockedSlot")
+        .select("startTime, endTime")
+        .eq("courtId", courtId)
+        .gte("startTime", selectedDate.toISOString())
+        .lt("startTime", nextDay.toISOString()),
+    ]);
 
-    const bookedSlots = (reservations ?? []).map((r) => {
-      const start = new Date(r.startTime);
-      return start.getHours();
-    });
+    const reservations = resResult.data ?? [];
+    const blockedSlots = blockedResult.data ?? [];
+
+    const bookedHours = new Set<number>();
+
+    for (const r of reservations) {
+      bookedHours.add(new Date(r.startTime).getHours());
+    }
+    for (const b of blockedSlots) {
+      const start = new Date(b.startTime);
+      const end = new Date(b.endTime);
+      for (let h = start.getHours(); h < end.getHours(); h++) {
+        bookedHours.add(h);
+      }
+    }
 
     const slots = [];
     for (let hour = 8; hour <= 23; hour++) {
       slots.push({
         hour,
         time: `${hour.toString().padStart(2, "0")}:00`,
-        available: !bookedSlots.includes(hour),
+        available: !bookedHours.has(hour),
       });
     }
 

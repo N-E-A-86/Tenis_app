@@ -44,3 +44,5 @@ next-env.d.ts
 
 # playwright-cli snapshots
 .playwright-cli
+
+.env*

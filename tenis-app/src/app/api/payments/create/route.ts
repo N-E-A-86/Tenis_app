@@ -57,9 +57,9 @@ export async function POST(req: NextRequest) {
           name: reservation.user.name || undefined,
         },
         back_urls: {
-          success: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard`,
+          success: `${process.env.NEXT_PUBLIC_APP_URL}/`,
           failure: `${process.env.NEXT_PUBLIC_APP_URL}/canchas/${reservation.courtId}`,
-          pending: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard`,
+          pending: `${process.env.NEXT_PUBLIC_APP_URL}/`,
         },
         auto_return: "approved",
         notification_url: `${process.env.NEXT_PUBLIC_APP_URL}/api/payments/webhook`,

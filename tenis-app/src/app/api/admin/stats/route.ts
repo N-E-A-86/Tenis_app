@@ -30,7 +30,7 @@ export async function GET() {
       supabaseAdmin.from("Reservation").select("*", { count: "exact", head: true }).eq("status", "CONFIRMED"),
       supabaseAdmin.from("Reservation").select("*", { count: "exact", head: true }).eq("status", "PENDING"),
       supabaseAdmin.from("Reservation").select("*", { count: "exact", head: true }).gte("startTime", todayStart.toISOString()).lt("startTime", todayEnd.toISOString()),
-      supabaseAdmin.from("Payment").select("amount").eq("status", "APPROVED"),
+      supabaseAdmin.from("Payment").select("amount").in("status", ["APPROVED", "completed"]),
     ]);
 
     const revenue = payments?.reduce((sum, p) => sum + Number(p.amount), 0) ?? 0;
